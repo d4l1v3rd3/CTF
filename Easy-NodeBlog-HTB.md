@@ -1,3 +1,5 @@
+# EASY NODE BLOG HTB
+
 Muy buenas a todo el mundo, mi nombre es D4l1 y hoy explicare como conseguir entender y destrozar la máquina NodeBlog
 
 Nos encontramos con una máquina de dificultad fácil, que no por ello lo tiene que ser.
@@ -34,9 +36,27 @@ Nos encontramos con el blog y obviamente inspeccionamos que nos encontramos, los
 Posteriormente encontramos un inicio de sesión, lo más obvio es probar un ataque de SQL INJECTION
 Después de probar diferentes cosas  probamos el NoSQL
 
-###NOSQL
+### NOSQL
 Es un tipo de base de datos no relacional diseñada para modelos de datos, incluyendo llaves, columnas y graficos. La diferencia entre SQL y noSQL es la forma de guardar información y la estructuración de los datos.
 
 Gracias a esta información encontramos un repositorio de bastantes payloads sobre noSQL
 
-#https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/NoSQL%20Injection#authentication-bypass
+https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/NoSQL%20Injection#authentication-bypass
+
+Ahora lo que debemos hacer es que Node interprete un input de un objeto JSON, usando logicos booleanos para hacer el bypass.
+
+# BURPSUITE
+
+Simplemente nos iremos a la página de log, cogeremos la petición y cambiaremos el Content-Type para que acepte estar respuestas.
+```
+Content-Type: application/json
+```
+Lo enviaremos al Repeater.
+Nos dan varios errores sobre /opt/blog (el código del servidor)
+
+Ahora probaremos envede el formado predeterminado donde el usuario y la contraseña y añadiremos el payload de json 
+```
+{"user": "admin", "password": {"ne": "admin"}}
+```
+
+
