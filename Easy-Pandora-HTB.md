@@ -31,4 +31,18 @@ sudo nmap -sU ip
 ```
 Aquí viene lo importante, nos encontramos con tres puertos UDP abiertos y nos centraremos en el 161
 
-###SNMP
+### SNMP
+Simple Network Management Protocol, protocolo para la gestión de la transferencia de información en redes, especialmente para uso en LAN.
+
+Gracias a esto aprenderemos a usar los comandos para escanear dicho puerto. 
+
+```
+snmpwalk  -v 1 -c public IP
+```
+Posteriormente a esto encontramos algo importante que es un usuario llamado "Daniel" con su respectiva contraseña "HotelBabylon23" para conectarnos por ssh
+```
+ssh daniel@ip
+```
+
+
+
