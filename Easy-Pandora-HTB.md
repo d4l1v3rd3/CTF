@@ -43,6 +43,49 @@ Posteriormente a esto encontramos algo importante que es un usuario llamado "Dan
 ```
 ssh daniel@ip
 ```
+Dentro vemos del directorio /home/matt el "user.txt" pero aún no tenemos los permisos para leerlo.
+
+## MOVIMIENTO LATERAL
+
+El siguiente paso que haremos será ver la página web que en el puerto 80 vimos, como sabemos normalmente las páginas estan guardadas en /var/www con lo cual haremos un ls -a
+```
+ls -al /var/www
+```
+Dentro encontramos el directorio "html" y así sabemos y comprobamos que lo tenemos.
+
+El siguiente paso sera ir donde apache guarda los sitios 
+```
+/etc/apache2/sites-enabled/pandora.conf
+```
+El cual nos encontramos con este código 
+```
+<VirtualHost localhost:80>
+  ServerAdmin admin@panda.htb
+  ServerName pandora.panda.htb
+  DocumentRoot /var/www/pandora
+  AssignUserID matt matt
+  <Directory /var/www/pandora>
+    AllowOverride All
+  </Directory>
+  ErrorLog /var/log/apache2/error.log
+  CustomLog /var/log/apache2/access.log combined
+</VirtualHost>
+```
+Gracias a eso odemos reenviar nuestra conexión al puerto interno del host remoto y luego podremos acceder a su
+contenido web. Hay varias formas de realizar el reenvío de puertos, aunque lo haremos utilizando el
+Conexión SSH en sí. Usando este túnel, podemos configurar un proxy para ver la página web.
+```
+ssh -D 9090 daniel@ip
+```
+También necesitaremos configurar un proxy SOCKS en la extensión del navegador foxy-proxy para poder realizar el
+El navegador enruta el tráfico a través del puerto que se reenvía.
+
+Cuando este todo creado, en el navegador ponemos "localhost"
+
+y aquí conseguimos la información de versión de pandora "v7.0NG.742_FIX_PERL2020"
+
+Con esto hemos encontrado [esta](https://www.sonarsource.com/blog/pandora-fms-742-critical-code-vulnerabilities-explained/) vulnerabilidad
+
 
 
 
