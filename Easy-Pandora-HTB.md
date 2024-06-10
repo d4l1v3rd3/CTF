@@ -29,3 +29,6 @@ Probaremos a hacer un nuevo escaner de nmap pero en este caso enfocandonos en ud
 ```
 sudo nmap -sU ip
 ```
+Aquí viene lo importante, nos encontramos con tres puertos UDP abiertos y nos centraremos en el 161
+
+###SNMP
