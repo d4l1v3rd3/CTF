@@ -86,6 +86,22 @@ y aquí conseguimos la información de versión de pandora "v7.0NG.742_FIX_PERL2
 
 Con esto hemos encontrado [esta](https://www.sonarsource.com/blog/pandora-fms-742-critical-code-vulnerabilities-explained/) vulnerabilidad
 
+## SQL INJECTION
+
+Con la anterior referencia, entendemos que pandora sufre una Injección SQL, pudiendo hacer un bypass en el proceso "/include/functions_io.php" y debemos pasar la "session_id" en este caso utilizaremos "sql_map" (debo aprender sql injection lose)
+
+Deberemos aprender a utilizar los "proxychains" 
+
+Proxychains es una herramienta que obliga a cualquier conexión TCP realizada por cualquier aplicación a pasar por servidores proxy.
+como TOR o cualquier otro proxy SOCKS4, SOCKS5 o HTTP.
+
+Necesitaremos agregar una entrada para nuestro proxy en la sección ProxyList en /etc/proxychains4.conf
+
+```
+nano /etc/proxychains4.con
+socks5 127.0.0.1 9090 daniel HotelBabylon23
+```
+
 
 
 
