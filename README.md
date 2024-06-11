@@ -1,4 +1,4 @@
-### HTB-Maquinas
+# HTB-Maquinas
 
 Explicare el procedimiento y teoría del aprendizaje y uso para capturar las banderas en las diferentes máquinas de HTB
 
