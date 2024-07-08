@@ -10,6 +10,8 @@ Este repositorio no es un WriteUP es la explicación del proceso, con respectivo
 
 [Perfection](https://github.com/D4l1-web/HTB/blob/main/Easy-Perfection-HTB.md)
 
+[Knife](https://github.com/D4l1-web/HTB/blob/main/Easy-Knife-HTB.md)
+
 [Backdoor](https://github.com/D4l1-web/HTB-Maquinas/blob/main/Easy-Backdoor-HTB.md)
 
 [CAP](https://github.com/D4l1-web/HTB-Maquinas/blob/main/Easy-CAP-HTB.md)
