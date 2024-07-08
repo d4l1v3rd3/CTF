@@ -126,6 +126,68 @@ Nos encontramos con un archivo vamos a verlo.
 
 ![image](https://github.com/D4l1-web/HTB/assets/79869523/5573e43e-ef44-4ba4-a88a-3dfbb8ee7770)
 
+Gracias a esto podemos hacer una especificacion de como va a ser la contraseña, PupilPath es una plataforma online que trackea a los estudiantes.
+
+En el directorio home de susan nos encontramos un archivo llamado "migration" 
+
+![image](https://github.com/D4l1-web/HTB/assets/79869523/7ab742af-c477-456d-9079-a149c30d05ee)
+
+Contiene un .db y esto es importante.
+
+Para enumerar la base de datos, procederemos a sí:
+
+Identificar el tipo de base de datos
+
+```
+file pupilpath_credentials.db
+```
+
+Abrir la base de datos usando SQLite
+
+```
+ sqlite3 pupilpath_credentials.db
+```
+![image](https://github.com/D4l1-web/HTB/assets/79869523/7c3a34b9-060a-4cf3-901a-7fb70dcb01f5)
+
+Devolver la tabla usuarios
+
+![image](https://github.com/D4l1-web/HTB/assets/79869523/25da8365-c368-46b5-8e41-d79dacc3af33)
+
+```
+select * from users;
+```
+Ahora tenemos el hash de la contraseña de susan y sabemos que es un SHA-256 gracias a hash-identifier
+
+## MASK ATTACK
+
+Se usan para generar palabran parecidas a un patron. Este tipo de contraseñas se hacer cuando sabes exactamente la longitud de la contraseña, deberemos crear una wordlist de 9 digitos y el hash y comprar el hash con los numeros generados
+
+CREAMOS WORDLIST
+```
+echo "susan_nasus_" > wl
+```
+CREAMOS EL ARCHIVO DEL HASH DE SUSAN
+
+```
+echo "abeb6f8eb5722b8ca3b45f6f72a0cf17c7028d62a15a30199347d9d74f39023f" > hash
+```
+
+CONSTRUIMOS EL HASHCAT PARA CRACKERA
+
+```
+hashcat -m 1400 -a 6 hash wl ?d?d?d?d?d?d?d?d?d -O
+```
+
+- -m 1400: Especifica el tipo de hash "SHA-256"
+- -a 6: Especifica el tipo de ataque, en este caso, combiene el ataque dodne el candidato en espacios
+- hash - El archivo con el hash
+- wl - la wordlist
+- ?d?d?d?d?d?d?d?d?d : La mascara que queremos representar de 9 dígitos
+- -O : Optimia el kernet
+
+Conseguimos la password y conseguimos ser root.
+
+![image](https://github.com/D4l1-web/HTB/assets/79869523/f1fa4809-9193-4ec8-8381-55599da850df)
 
 
 
