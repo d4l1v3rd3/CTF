@@ -17,6 +17,7 @@ Este repositorio no es un WriteUP es la explicación del proceso, con respectivo
 - [HORIZONTALL](https://github.com/D4l1-web/HTB-Maquinas/blob/main/Easy-HTB-Horizontall.md)
 - [NODE BLOG](https://github.com/D4l1-web/HTB-Maquinas/blob/main/Easy-NodeBlog-HTB.md)
 - [Pandora](https://github.com/D4l1-web/HTB-Maquinas/blob/main/Easy-Pandora-HTB(sin%20terminar).md)
+- [Armageddon](https://github.com/D4l1-web/HTB/blob/main/Easy-Armageddon-HTB.md)
 
 ## MEDIUM
 
