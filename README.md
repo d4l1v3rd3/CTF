@@ -12,6 +12,7 @@ Este repositorio no es un WriteUP es la explicación del proceso, con respectivo
 - [Perfection](https://github.com/D4l1-web/HTB/blob/main/easy/Perfection-HTB.md)
 - [Love](https://github.com/D4l1-web/HTB/blob/main/easy/Love-HTB.md)
 - [Knife](https://github.com/D4l1-web/HTB/blob/main/easy/Knife-HTB.md)
+- [ScriptKiddie](https://github.com/D4l1-web/HTB/blob/main/easy/ScriptKiddie-HTB.md)
 - [Backdoor](https://github.com/D4l1-web/HTB-Maquinas/blob/main/easy/Backdoor-HTB.md)
 - [CAP](https://github.com/D4l1-web/HTB-Maquinas/blob/main/easy/CAP-HTB.md)
 - [HORIZONTALL](https://github.com/D4l1-web/HTB-Maquinas/blob/main/easy/HTB-Horizontall.md)
