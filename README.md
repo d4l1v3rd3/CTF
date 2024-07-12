@@ -8,7 +8,7 @@ Este repositorio no es un WriteUP es la explicación del proceso, con respectivo
 
 ## EASY
 
-- [Toolbox](https://github.com/D4l1-web/HTB/blob/main/Easy-Toolbox-HTB.md) 
+- [Toolbox](https://github.com/D4l1-web/HTB/blob/main/easy/Toolbox-HTB.md) 
 - [Perfection](https://github.com/D4l1-web/HTB/blob/main/Easy-Perfection-HTB.md)
 - [Love](https://github.com/D4l1-web/HTB/blob/main/Easy-Love-HTB.md)
 - [Knife](https://github.com/D4l1-web/HTB/blob/main/Easy-Knife-HTB.md)
