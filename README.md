@@ -20,6 +20,7 @@ Este repositorio no es un WriteUP es la explicación del proceso, con respectivo
 - [Pandora](https://github.com/D4l1-web/HTB-Maquinas/blob/main/easy/Pandora-HTB(sin%20terminar).md)
 - [Armageddon](https://github.com/D4l1-web/HTB/blob/main/easy/Armageddon-HTB.md)
 - [Spectra](https://github.com/D4l1-web/HTB/blob/main/easy/Spectra-HTB.md)
+- [Delivery](https://github.com/D4l1-web/HTB/blob/main/easy/HTB-Delivery.md)
 
 ## MEDIUM
 
