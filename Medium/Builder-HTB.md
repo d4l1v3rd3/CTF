@@ -65,6 +65,11 @@ HOSTNAME=0f52c222a4cc<SNIP>HOME=/var/jenkins_home<SNIP>
 ```
 Leyendo estas variables, encontramos que el directorio home esta en "/var/jenkins_home"
 
+![image](https://github.com/user-attachments/assets/524d632a-4c1e-48bf-af25-593fdbf63169)
+
+Tenemos la user.txt
+
+Si nos damos cuenta 
 
 
 
