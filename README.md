@@ -24,6 +24,8 @@ Este repositorio no es un WriteUP es la explicación del proceso, con respectivo
 
 ## MEDIUM
 
+- [BUILDER](https://github.com/D4l1-web/HTB/blob/main/Medium/Builder-HTB.md)
+
 ## HARD
 
 # CHALLENGES
