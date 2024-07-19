@@ -5,9 +5,10 @@
 
 # ÍNDICE
 
-- [INICIO]
-- [ENUMERACION]
-- 
+- [INICIO](https://github.com/D4l1-web/HTB/blob/main/Medium/Builder-HTB.md#inicio)
+- [ENUMERACION](https://github.com/D4l1-web/HTB/blob/main/Medium/Builder-HTB.md#enumeracion)
+- [INTRODUCCIÓN AL SISTEMA](https://github.com/D4l1-web/HTB/blob/main/Medium/Builder-HTB.md#enumeracion)
+- [ESCALA DE PRIVILEGIOS](https://github.com/D4l1-web/HTB/blob/main/Medium/Builder-HTB.md#escala-de-privilegios)
 
 # INICIO
 
