@@ -21,6 +21,7 @@ Este repositorio no es un WriteUP es la explicación del proceso, con respectivo
 - [Armageddon](https://github.com/D4l1-web/HTB/blob/main/easy/Armageddon-HTB.md)
 - [Spectra](https://github.com/D4l1-web/HTB/blob/main/easy/Spectra-HTB.md)
 - [Delivery](https://github.com/D4l1-web/HTB/blob/main/easy/HTB-Delivery.md)
+- [Ignite](https://github.com/d4l1v3rd3/CTF/blob/main/easy/IGNITE-THackme.md)
 
 ## MEDIUM
 
@@ -32,6 +33,4 @@ Este repositorio no es un WriteUP es la explicación del proceso, con respectivo
 
 - [Emdee five for life](https://github.com/D4l1-web/HTB/blob/main/challenge/Emdee%20five%20for%20life(sin%20acabar).md)
 
-# INICIACIÓN TRYHACKME
 
-- [Vulnversity]
