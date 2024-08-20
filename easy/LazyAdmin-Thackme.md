@@ -71,6 +71,36 @@ Dentro realmente no encontramos muchas cosas importantes pero podemos usar el ex
 
 Primero de todo deberemos tener un reverse shell
 
+![image](https://github.com/user-attachments/assets/b9c1cdc3-50d7-442e-acdc-dc3ccc68ff20)
+
+Simplemente utilizamos un rev shell lo ponemos en formato ".phtml" y en "media center" lo subimos hacemos un nc para estar en escucha en el puerto elegido y lo ejecutamos.
+
+![image](https://github.com/user-attachments/assets/53f4c398-d344-4084-8e62-9e31383c5d02)
+
+```
+/bin/bash -i
+```
+ y sacamos la primera flag 
+
+ ![image](https://github.com/user-attachments/assets/128a9eba-941d-4ea9-a09f-56a125dfcf46)
+
+Si hacemos un "sudo -l" 
+
+Vemos qeu tenemos posibilidad de ejecutar el /home/itguy/backup.pl 
+
+![image](https://github.com/user-attachments/assets/329d7f0f-9d32-49f0-b57e-c4f11aa1f6a1)
+
+Vemos que dicho archivo se dirige a otro 
+
+![image](https://github.com/user-attachments/assets/e36b05ff-7c4f-44b6-b084-0409f2fb2d37)
+
+vamo s aver que tiene "copy.sh"
+
+![image](https://github.com/user-attachments/assets/da95a934-c99e-4b39-8597-73b3d6532cc4)
+
+
+
+
 
 
 
