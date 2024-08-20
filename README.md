@@ -8,7 +8,7 @@ Este repositorio no es un WriteUP es la explicación del proceso, con respectivo
 
 ## EASY
 
-- [Fowsniff CTF](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Fowsniff%20CTF-Thackme.md) - (Tryhackme) - SSH - Hydra - POP/IMAP - Exploit Kernel
+- [Fowsniff CTF](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Fowsniff%20CTF-Thackme.md) - (Tryhackme) - SSH - Hydra - POP/IMAP - Exploit Kernel - (LINUX)
 - [Toolbox](https://github.com/D4l1-web/HTB/blob/main/easy/Toolbox-HTB.md) 
 - [Perfection](https://github.com/D4l1-web/HTB/blob/main/easy/Perfection-HTB.md)
 - [Love](https://github.com/D4l1-web/HTB/blob/main/easy/Love-HTB.md)
