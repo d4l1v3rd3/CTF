@@ -4,8 +4,6 @@
 
 <p align="center"><img src="https://github.com/user-attachments/assets/33e80c90-ca9f-4ff4-8cae-3a9d26ec154a"></p>
 
-# ÍNDICE
-
 # INTRODUCCIÓN
 
 Explicare el procedimiento y teoría del aprendizaje y uso para capturar las banderas en las diferentes máquinas de HTB y de Tryhackme
