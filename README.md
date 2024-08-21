@@ -12,12 +12,12 @@ Explicare el procedimiento y teoría del aprendizaje y uso para capturar las ban
 
 Este repositorio no es un WriteUP es la explicación del proceso, con respectivos comandos y aplicaciones que haran que podamos conseguir la máquina.
 
-MÁQUINAS | DESCRIPCIÓN | DIFICULTAD | PLATAFORMA | SO |
+MÁQUINAS | DESCRIPCIÓN | DIFICULTAD | PLATAFORMA | SO | 
 --- | --- | ---- | --- | ---- |
-[Fowsniff CTF](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Fowsniff%20CTF-Thackme.md) | SSH - Hydra - POP/IMAP - Exploit Kernel | FÁCIL | THM | LINUX |  
+[Fowsniff CTF](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Fowsniff%20CTF-Thackme.md) | SSH - Hydra - POP/IMAP - Exploit Kernel | FÁCIL | THM | LINUX |
 [BluePrint](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Blueprint-Thackme.md) | oscommerce - metasploit - RCE - NTLM Hash - RevShell | FÁCIL | THM | WINDOWS |
 [LazyAdmin](https://github.com/d4l1v3rd3/CTF/blob/main/easy/LazyAdmin-Thackme.md) | FFUF - CMS SweetRice - LFI - RevShell | FÁCIL | THM | LINUX |
-[Toolbox](https://github.com/D4l1-web/HTB/blob/main/easy/Toolbox-HTB.md)  | Docker - ftp - DNS - BurpSuite - sqlmap - shell - id_rsa | FÁCIL | HTB | LINUX |
+[Toolbox](https://github.com/D4l1-web/HTB/blob/main/easy/Toolbox-HTB.md)  | Docker - ftp - DNS - BurpSuite - sqlmap - shell - id_rsa | FÁCIL | HTB | LINUX | <img height=65 width=65 src=">
 [Perfection](https://github.com/D4l1-web/HTB/blob/main/easy/Perfection-HTB.md) | WEBrick 1.7.0 - BurpSuite - SSTI - bypassRuby - revShell  - sqlite  - maskattack | FÁCIL | HTB | LINUX |
 [Love](https://github.com/D4l1-web/HTB/blob/main/easy/Love-HTB.md) | SSRF - DNS - LFI | FÁCIL | HTB | WINDOWS |
 [Knife](https://github.com/D4l1-web/HTB/blob/main/easy/Knife-HTB.md) | FFUF - PHP - knife | FÁCIL | HTB | LINUX |
