@@ -33,4 +33,6 @@ En el código fuente encontramos un directorio secreto pero esta encriptado.
 ```
 
 
+Si nos fijamos en los hints de THM nos dice como descifrarlo, creamos un pequeño script en py
+
 
