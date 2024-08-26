@@ -23,14 +23,14 @@ MÁQUINAS | DESCRIPCIÓN | DIFICULTAD | PLATAFORMA | SO |
 [Backdoor](https://github.com/D4l1-web/HTB-Maquinas/blob/main/easy/Backdoor-HTB.md) | Wordpress - wp-config.php - P (1337) - Fuerza bruta - gdbaster - RCE | FÁCIL | HTB | LINUX |
 [Cap](https://github.com/D4l1-web/HTB-Maquinas/blob/main/easy/CAP-HTB.md) | FTP | FÁCIL | HTB | LINUX |
 [Horizontall](https://github.com/D4l1-web/HTB-Maquinas/blob/main/easy/HTB-Horizontall.md) | HHTP - SSH - CMS - CVE | FÁCIL | HTB | LINUX |
-[NODE BLOG](https://github.com/D4l1-web/HTB-Maquinas/blob/main/easy/NodeBlog-HTB.md) | NOSQL - BURPSUITE - PS AUX | FÁCIL | HTB | LINUX | 
+[Node_Blog](https://github.com/D4l1-web/HTB-Maquinas/blob/main/easy/NodeBlog-HTB.md) | NOSQL - BURPSUITE - PS AUX | FÁCIL | HTB | LINUX | 
 [Pandora](https://github.com/D4l1-web/HTB-Maquinas/blob/main/easy/Pandora-HTB(sin%20terminar).md) | DNS - SNMP - Movimiento Lateral - VirtualHost - ssh sqlmap | FÁCIL | HTB | LINUX |
 [Armageddon](https://github.com/D4l1-web/HTB/blob/main/easy/Armageddon-HTB.md) | Drupal - git - mysql - snapd | FÁCIL | HTB | LINUX |
 [Spectra](https://github.com/D4l1-web/HTB/blob/main/easy/Spectra-HTB.md) | DNS - SQL - WORDPRESS - SSH - GRUPOS | FÁCIL | HTB | LINUX | 
 [Delivery](https://github.com/D4l1-web/HTB/blob/main/easy/HTB-Delivery.md) | FFUF - SSH - LFI - SQL - JOHN | FÁCIL | HTB | LINUX |
 [Ignite](https://github.com/d4l1v3rd3/CTF/blob/main/easy/IGNITE-THackme.md) | FUELCMS - RCE - SHELL - PHP | FÁCIL | THM | LINUX
-[BUILDER](https://github.com/D4l1-web/HTB/blob/main/Medium/Builder-HTB.md) | Docker - Jenkins - john - ssh | MEDIO | HTB | LINUX |
-[ULTRATECH](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/UltraTech-THB.md) | Docker - ssh - FUZZ - CrackHash - RCE - RevShell | MEDIO | THM | LINUX |
+[Builder](https://github.com/D4l1-web/HTB/blob/main/Medium/Builder-HTB.md) | Docker - Jenkins - john - ssh | MEDIO | HTB | LINUX |
+[Ultratech](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/UltraTech-THB.md) | Docker - ssh - FUZZ - CrackHash - RCE - RevShell | MEDIO | THM | LINUX |
 [StuxCTF](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/StuxCTF-THM.md) | Python - Decoding - Crypto - RevShell - LFI - Sudo - PHP | MEDIO | THM | LINUX |
 
 
