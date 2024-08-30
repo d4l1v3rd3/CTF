@@ -223,7 +223,7 @@ S0pXRkVVS0pKQkxIVVdTWUpFM0VTUlk9
 
 Con "CyberChef" sacamos la primera parte de la crest
 
-Solución: KJWFEUKJJBLHUWSYJE3ESRY=
+Solución: RlRQIHVzZXI6IG
 
 ### CREST 2
 
@@ -232,8 +232,43 @@ GVFWK5KHK5WTGTCILE4DKY3DNN4GQQRTM5AVCTKE
 - Cifrado 2 veces
 - Cotiene 18 letras
 
+Después de muchisimo lo hemos sacado
 
+![image](https://github.com/user-attachments/assets/c364f239-ae95-4ecd-9381-1d2affe3f95b)
 
+h1bnRlciwgRlRQIHBh
+
+### CREST 3
+
+MDAxMTAxMTAgMDAxMTAwMTEgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTAwMTEgMDAxMDAwMDAgMDAxMTAxMDAgMDExMDAxMDAgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTAxMTAgMDAxMDAwMDAgMDAxMTAxMDAgMDAxMTEwMDEgMDAxMDAwMDAgMDAxMTAxMDAgMDAxMTEwMDAgMDAxMDAwMDAgMDAxMTAxMTAgMDExMDAwMTEgMDAxMDAwMDAgMDAxMTAxMTEgMDAxMTAxMTAgMDAxMDAwMDAgMDAxMTAxMTAgMDAxMTAxMDAgMDAxMDAwMDAgMDAxMTAxMDEgMDAxMTAxMTAgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTEwMDEgMDAxMDAwMDAgMDAxMTAxMTAgMDExMDAwMDEgMDAxMDAwMDAgMDAxMTAxMDEgMDAxMTEwMDEgMDAxMDAwMDAgMDAxMTAxMDEgMDAxMTAxMTEgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTAxMDEgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTAwMDAgMDAxMDAwMDAgMDAxMTAxMDEgMDAxMTEwMDAgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTAwMTAgMDAxMDAwMDAgMDAxMTAxMTAgMDAxMTEwMDA=
+
+- 3 veces cifrado
+- contiene 19 letras
+
+Este ha sido bastante simple
+
+![image](https://github.com/user-attachments/assets/957db785-49fb-4b3e-a1d4-c51bb88ef525)
+
+c3M6IHlvdV9jYW50X2h
+
+### CREST 4 
+
+gSUERauVpvKzRpyPpuYz66JDmRTbJubaoArM6CAQsnVwte6zF9J4GGYyun3k5qM9ma4s
+
+- Va cifrado 2 veces
+- contiene 17 caracteres
+
+![image](https://github.com/user-attachments/assets/059375ff-c811-4bd8-9a37-9babed5d3d1d)
+
+pZGVfZm9yZXZlcg==
+
+Ahora que tenemos todos vamos a sacar el final
+
+# MANSION FINAL
+
+Juntamos todos y haber que sacamos
+
+RlRQIHVzZXI6IGGVFWK5KHK5WTGTCILE4DKY3DNN4GQQRTM5AVCTKEc3M6IHlvdV9jYW50X2hpZGVfZm9yZXZlcg==
 
 
 
