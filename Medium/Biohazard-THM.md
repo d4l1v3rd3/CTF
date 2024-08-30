@@ -268,11 +268,33 @@ Ahora que tenemos todos vamos a sacar el final
 
 Juntamos todos y haber que sacamos
 
-RlRQIHVzZXI6IGGVFWK5KHK5WTGTCILE4DKY3DNN4GQQRTM5AVCTKEc3M6IHlvdV9jYW50X2hpZGVfZm9yZXZlcg==
+RlRQIHVzZXI6IGh1bnRlciwgRlRQIHBhc3M6IHlvdV9jYW50X2hpZGVfZm9yZXZlcg==
 
+Sacamos : FTP user: hunter, FTP pass: you_cant_hide_forever 
 
+Seguimos
 
+# THE GUARD HOUSE
 
+Después de conseguir el acceso del FTP vamos a ver que encontramos
+
+```
+ftp <IP>
+```
+
+![image](https://github.com/user-attachments/assets/febbcb17-3168-401d-825d-41b7dd3791c8)
+
+Vamos a leer y descargarnos imagenes porque seguramente necesitemos el exitfool o alguna herramienta de estas
+
+![image](https://github.com/user-attachments/assets/78fccbb6-cb1c-4f58-b46b-1825f052c72c)
+
+Y como vemos para ser una imagen ocupan mucho
+
+![image](https://github.com/user-attachments/assets/bef75d88-4bfb-4327-a067-be6ac5c0d108)
+
+Nos dice que la llave esta dentro del fichero de texto, pero necesitamos desencriptar y que vayamos al directorio /hidden_closet/ pero esta cerrada
+
+![image](https://github.com/user-attachments/assets/df9729d8-380e-47bd-9880-8b56c3f696ec)
 
 
 
