@@ -10,7 +10,7 @@ Explicare el procedimiento y teoría del aprendizaje y uso para capturar las ban
 
 Este repositorio no es un WriteUP es la explicación del proceso, con respectivos comandos y aplicaciones que haran que podamos conseguir la máquina.
 
-MÁQUINAS | DESCRIPCIÓN | DIFICULTAD | PLATAFORMA | SO | 
+Máquinas | Descripción | Dificultad | Plataforma | Sistema Operativo | 
 --- | --- | ---- | --- | ---- |
 [Fowsniff CTF](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Fowsniff%20CTF-Thackme.md) | SSH - Hydra - POP/IMAP - Exploit Kernel | FÁCIL | THM | LINUX |
 [BluePrint](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Blueprint-Thackme.md) | oscommerce - metasploit - RCE - NTLM Hash - RevShell | FÁCIL | THM | WINDOWS |
