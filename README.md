@@ -33,5 +33,5 @@ MÁQUINAS | DESCRIPCIÓN | DIFICULTAD | PLATAFORMA | SO |
 [Ultratech](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/UltraTech-THB.md) | Docker - ssh - FUZZ - CrackHash - RCE - RevShell | MEDIO | THM | LINUX |
 [Biohazard](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Biohazard-THM.md) | Tar - Gzip - Exiftool - Steghide - Walk - SSH - FTP | MEDIO | THM | LINUX |
 [StuxCTF](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/StuxCTF-THM.md) | Python - Decoding - Crypto - RevShell - LFI - Sudo - PHP | MEDIO | THM | LINUX |
-
+[Akkative Directory](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Attacktive_Directory-THM.md) | Active Directory (Sin Acabar) | MEDIO | THM | WINDOWS |
 
