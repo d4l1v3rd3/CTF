@@ -296,5 +296,127 @@ Nos dice que la llave esta dentro del fichero de texto, pero necesitamos desencr
 
 ![image](https://github.com/user-attachments/assets/df9729d8-380e-47bd-9880-8b56c3f696ec)
 
+Los archivos anteriormente descargamos si hacemos un 
+```
+file fichero
+```
+
+Nos dará información relevante que queremos.
+
+![image](https://github.com/user-attachments/assets/78fd114e-a47b-4409-baee-8247191afa3f)
+
+Como vemos las imagenes vemos un texto qeu nos parece importante vamos a ver si sacamos mas info
+
+Creo que viendo esto tendremos que sacar 3 keys de las imagenes y sabemos una de ellas la segunda
+
+### primera key
+
+Haciendo varias pruebas y viendo la única opción que encuentro es sacar esto por estenografía
+
+Herramientas como "steghide"
+
+```
+sudo apt-get install steghide -y
+```
+
+![image](https://github.com/user-attachments/assets/0059a304-ae8a-4ee0-9b98-83c6ef3fe1f8)
+
+Sacamos la primera : cGxhbnQ0Ml9jYW
+
+### segunda key
+
+Esta es muy simple podemos hacerlo con un exiftool o simplemente con un file
+
+![image](https://github.com/user-attachments/assets/108a90e0-7863-423a-9b7e-6261de571b6f)
+
+5fYmVfZGVzdHJveV9
+
+### tercera key
+
+Esta key hemos probado los dos anteriores con lo cuál probraremos con "binwalk"
+
+![image](https://github.com/user-attachments/assets/2fd40455-a575-48d7-85a4-3cd7341c2463)
+
+Porque anteriormente hemos visto que era la unica que esta en JPEG comprimido
+
+3aXRoX3Zqb2x0
+
+## FINAL GUAR HOUSE
+
+Ahora simplemente como en el anterior juntamos las 3
+
+cGxhbnQ0Ml9jYW5fYmVfZGVzdHJveV93aXRoX3Zqb2x0
+
+En "cyberchief" lo sacamos rápidamente: plant42_can_be_destroy_with_vjolt
+
+Vamos a sacar ahora el archivo gpg
+
+![image](https://github.com/user-attachments/assets/88142d5e-547a-43dd-b73c-8479396ea5c5)
+
+![image](https://github.com/user-attachments/assets/ae8622e7-f608-495c-8d07-ddcb7a40a242)
+
+Ahora nos vamos al "hidden_closet"  y vamos a ver donden os lleva
+
+![image](https://github.com/user-attachments/assets/c4aa89db-8e55-4303-a9f9-41acf1918a35)
+
+Vemos que es debajo de una cueva, en la que nos encontramos a Enrico qeu esta mal herido, el lider del equipo bravo. Nos menciona que hay un traidor en el equipo ALPHA!!
+
+Cuando le preguntamos por en nombre, dice que escucho un sonido de escopeta.
+
+Jill figura quien podria ser, Encontramos un disco y una medalal de lobo
+
+```
+wpbwbxr wpkzg pltwnhro, txrks_xfqsxrd_bvv_fy_rvmexa_ajk
+```
+
+SSH password: T_virus_rules
+
+Guay vamos a ver que sacamos con esto
+
+Me había olvidado que ahora podemos abrir la "study room"
+
+![image](https://github.com/user-attachments/assets/1562cfb7-c398-426a-938b-3ecfef30549c)
+
+En la que nos encontramos con un archivo tar.gz con lo cual habra que descomprimirlo seguramente dos veces
+
+![image](https://github.com/user-attachments/assets/3a7ed39d-170f-44e8-907b-68e388f15872)
+
+GG tenemos el usuario SSH
+
+SSH user : umbrella_guest
+
+Vamos aya!!
+
+# Laboratorio
+
+![image](https://github.com/user-attachments/assets/e321c7e4-6602-453a-b0fe-4f3feb27967c)
+
+Dentro ya del ssh vamos a por la siguiente prueba
+
+Una cosa que me olvidaba de dejar por aquí era el desciframiento de la url que teniamos de la anterior sala porque habia dos "albert weasker password: stars_members_are_my_guinea_pig"
+
+Dentro del ssh hacemos un "ls -la"
+
+![image](https://github.com/user-attachments/assets/0d7aed46-82d5-446e-88bc-9dbcc3cc5b3f)
+
+Veremos directorios, uno raro que veo es ".jailcell"
+
+![image](https://github.com/user-attachments/assets/e5bdf065-b07a-4e6e-bd53-769c5d3ebef2)
+
+En la que nos damos cuenta que el traidor es "weasker" 
+
+Y tenemos su contraseña con lo cual podemos irnos a su logeo jeje
+
+![image](https://github.com/user-attachments/assets/96ce143d-c9a2-4d9f-a9fc-f0034618284e)
+
+Parece que el cabron este esta en todos los grupos hasta en el de sudo jajaj
+
+![image](https://github.com/user-attachments/assets/794fdbaf-929b-4161-9511-fc68c69401e9)
+
+![image](https://github.com/user-attachments/assets/ed4c9ff7-7374-4ce0-a962-375e1d76bce5)
+
+GG !!!! Una de las mejores CTF que he hecho.
+
+
 
 
