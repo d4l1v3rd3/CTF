@@ -28,7 +28,8 @@ Máquinas | Descripción | Dificultad | Plataforma | Sistema Operativo |
 [Armageddon](https://github.com/D4l1-web/HTB/blob/main/easy/Armageddon-HTB.md) | Drupal - git - mysql - snapd | FÁCIL | HTB | LINUX |
 [Spectra](https://github.com/D4l1-web/HTB/blob/main/easy/Spectra-HTB.md) | DNS - SQL - WORDPRESS - SSH - GRUPOS | FÁCIL | HTB | LINUX | 
 [Delivery](https://github.com/D4l1-web/HTB/blob/main/easy/HTB-Delivery.md) | FFUF - SSH - LFI - SQL - JOHN | FÁCIL | HTB | LINUX |
-[Ignite](https://github.com/d4l1v3rd3/CTF/blob/main/easy/IGNITE-THackme.md) | FUELCMS - RCE - SHELL - PHP | FÁCIL | THM | LINUX
+[Ignite](https://github.com/d4l1v3rd3/CTF/blob/main/easy/IGNITE-THackme.md) | FUELCMS - RCE - SHELL - PHP | FÁCIL | THM | LINUX |
+[Kenobi](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Kenobi-THM.md) | Samba - FTP - Path Variable Manipulation | FÁCIL | THM | LINUX |
 [Builder](https://github.com/D4l1-web/HTB/blob/main/Medium/Builder-HTB.md) | Docker - Jenkins - john - ssh | MEDIO | HTB | LINUX |
 [Ultratech](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/UltraTech-THB.md) | Docker - ssh - FUZZ - CrackHash - RCE - RevShell | MEDIO | THM | LINUX |
 [Biohazard](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Biohazard-THM.md) | Tar - Gzip - Exiftool - Steghide - Walk - SSH - FTP | MEDIO | THM | LINUX |
