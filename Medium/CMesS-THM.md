@@ -76,6 +76,52 @@ rlwrap nc -lvnp 1333
 
 ![image](https://github.com/user-attachments/assets/08a6652a-6c49-4642-be9e-45192623c703)
 
-cd
+
+Si enumeramos un poco el sistema en el directorio /opt/ encontramos un archivo importante:
+
+![image](https://github.com/user-attachments/assets/371756f8-7f25-479a-8d48-09055f6f5590)
+
+andre:UQfsdCB7aAP6
+
+Vamos a probar a conectar por ssh con esta contraseña y con el usuario andres o andre
+
+![image](https://github.com/user-attachments/assets/f61c7342-0a01-424b-a8be-506da604f16e)
+
+GG!! Estamos dentro y podemos sacar la primera flag
+
+Ahora vamos a lo duro que es escalar privilegios
+
+# ESCALA DE PRIVILEGIOS
+
+primero de todo un sudo -l a ver si sacamos info pero nada.
+
+Posteriormente hago un 
+
+```
+cat /etc/crontab
+```
+
+Para mirar tareas y nos encontramos algo muy guay
+
+```
+cd /home/andre/backup && tar -zcf /tmp/andre_backup.tar.gz *
+```
+Hay un proceso de root el cual nosotros podemos jugar con el.
+
+Primero de todo nos vamos a la ruta en cuestión /home/andre/backup
+
+![image](https://github.com/user-attachments/assets/03e76e48-a4dc-4b80-848e-f989427600ef)
+
+Dentro de GTFo Bind "tar" encontramos un poco lo que podemos hacer
+
+Creamos un "shell.sh" muy basico que simplemente coja una bin/bash y la mande al tmp con permisos de root
+
+![image](https://github.com/user-attachments/assets/0aa323fc-2f67-4279-93f5-d6c65f55514f)
+
+![image](https://github.com/user-attachments/assets/065ffdc4-cfe6-49cd-a7cc-b56811e1eed5)
+
+GG!!!
+
+
 
 
