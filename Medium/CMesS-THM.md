@@ -62,7 +62,20 @@ Por otro lado si vamos por "Content - File Manager" nos encontramos los archivos
 
 En el clavo, en el archivo "config.php" nos encontramos un usuario y contraseña de una base de datos, y una cosa que no me había fijado esque disponemos con que podemos nosotros añadir código al fichero, pudiendo leer o crear una rev shell.
 
+root:r0otus3rpassw0rd
+
 Por supuesto cogeremos la shell de pentest "https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php"
 
+![image](https://github.com/user-attachments/assets/aba13136-af66-4fe5-9f0c-973588814b2d)
+
+Una vez guardada nos ponemos en escucha
+
+```
+rlwrap nc -lvnp 1333
+```
+
+![image](https://github.com/user-attachments/assets/08a6652a-6c49-4642-be9e-45192623c703)
+
+cd
 
 
