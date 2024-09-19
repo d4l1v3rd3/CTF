@@ -38,4 +38,5 @@ Máquinas | Descripción | Dificultad | Plataforma | Sistema Operativo |
 [Akkative Directory](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Attacktive_Directory-THM.md) | Active Directory (Sin Acabar) | MEDIO | THM | WINDOWS |
 [GoldenEye](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/GoldenEye-THM.md) | Decoding - RevShell - Joomla | MEDIO | THM | LINUX |
 [CMesS](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/CMesS-THM.md) | Fuzzing Subdominios - RevShell - Cmess - Tar Escala de privilegios | MEDIO | THM | LINUX |
+[Atakktive](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Attacktive_Directory-THM.md) | ActiveDirectory - EvilWin - NTLM - Kerberos - Hash - SMB | MEDIO | THM | WINDOWS |
 
