@@ -33,6 +33,7 @@ Máquinas | Descripción | Dificultad | Plataforma | Sistema Operativo |
 [SteelMountain](https://github.com/d4l1v3rd3/CTF/blob/main/easy/SteelMountain-THM.md) | Metasploit - Powershell - HttpFile | FÁCIL | THM | WINDOWS |
 [Anthem](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Anthem-THM.md) | RDP - Código Fuente - FFUF | FÁCIL | THM | WINDOWS |
 [OverPass](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Overpass-THM.md) | ssh2john - linpeas - python server - rev shell | Fácil | THM | LINUX |
+[Expose](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Expose-THM.md) | LFI - SqlMap - RevSHell - Find escala privilegios - Nano - /etc/passwd | FÁCIL | THM | LINUX | 
 [Builder](https://github.com/D4l1-web/HTB/blob/main/Medium/Builder-HTB.md) | Docker - Jenkins - john - ssh | MEDIO | HTB | LINUX |
 [Ultratech](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/UltraTech-THB.md) | Docker - ssh - FUZZ - CrackHash - RCE - RevShell | MEDIO | THM | LINUX |
 [Biohazard](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Biohazard-THM.md) | Tar - Gzip - Exiftool - Steghide - Walk - SSH - FTP | MEDIO | THM | LINUX |
