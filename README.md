@@ -10,12 +10,12 @@ Explicare el procedimiento y teoría del aprendizaje y uso para capturar las ban
 
 Este repositorio no es un WriteUP es la explicación del proceso, con respectivos comandos y aplicaciones que haran que podamos conseguir la máquina.
 
-Máquinas | Descripción | Dificultad | Plataforma | Sistema Operativo | 
---- | --- | ---- | --- | ---- |
+Máquinas | Descripción | Dificultad | Plataforma | Sistema Operativo | Imagen | 
+--- | --- | ---- | --- | ---- | --- |
 [Fowsniff CTF](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Fowsniff%20CTF-Thackme.md) | SSH - Hydra - POP/IMAP - Exploit Kernel | FÁCIL | THM | LINUX |
 [BluePrint](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Blueprint-Thackme.md) | oscommerce - metasploit - RCE - NTLM Hash - RevShell | FÁCIL | THM | WINDOWS |
 [LazyAdmin](https://github.com/d4l1v3rd3/CTF/blob/main/easy/LazyAdmin-Thackme.md) | FFUF - CMS SweetRice - LFI - RevShell | FÁCIL | THM | LINUX |
-[Toolbox](https://github.com/D4l1-web/HTB/blob/main/easy/Toolbox-HTB.md)  | Docker - ftp - DNS - BurpSuite - sqlmap - shell - id_rsa | FÁCIL | HTB | LINUX | <img height=65 width=65 src=">
+[Toolbox](https://github.com/D4l1-web/HTB/blob/main/easy/Toolbox-HTB.md)  | Docker - ftp - DNS - BurpSuite - sqlmap - shell - id_rsa | FÁCIL | HTB | LINUX | 
 [Perfection](https://github.com/D4l1-web/HTB/blob/main/easy/Perfection-HTB.md) | WEBrick 1.7.0 - BurpSuite - SSTI - bypassRuby - revShell  - sqlite  - maskattack | FÁCIL | HTB | LINUX |
 [Love](https://github.com/D4l1-web/HTB/blob/main/easy/Love-HTB.md) | SSRF - DNS - LFI | FÁCIL | HTB | WINDOWS |
 [Knife](https://github.com/D4l1-web/HTB/blob/main/easy/Knife-HTB.md) | FFUF - PHP - knife | FÁCIL | HTB | LINUX |
@@ -34,7 +34,7 @@ Máquinas | Descripción | Dificultad | Plataforma | Sistema Operativo |
 [Anthem](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Anthem-THM.md) | RDP - Código Fuente - FFUF | FÁCIL | THM | WINDOWS |
 [OverPass](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Overpass-THM.md) | ssh2john - linpeas - python server - rev shell | Fácil | THM | LINUX |
 [Expose](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Expose-THM.md) | LFI - SqlMap - RevSHell - Find escala privilegios - Nano - /etc/passwd | FÁCIL | THM | LINUX | 
-[Services](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Services-THM.md) | Kerberos - Hashcat - EvilWinRm - Escala por servicios | MEDIO | THM | WINDOWS | 
+[Services](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Services-THM.md) | Kerberos - Hashcat - EvilWinRm - Escala por servicios | MEDIO | THM | WINDOWS | <img width=50px height=50px src="https://github.com/user-attachments/assets/94ca00b0-9dc2-4b15-8ca6-6e4b0cd19362"> |
 [Builder](https://github.com/D4l1-web/HTB/blob/main/Medium/Builder-HTB.md) | Docker - Jenkins - john - ssh | MEDIO | HTB | LINUX |
 [Ultratech](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/UltraTech-THB.md) | Docker - ssh - FUZZ - CrackHash - RCE - RevShell | MEDIO | THM | LINUX |
 [Biohazard](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Biohazard-THM.md) | Tar - Gzip - Exiftool - Steghide - Walk - SSH - FTP | MEDIO | THM | LINUX |
