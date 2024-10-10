@@ -34,6 +34,7 @@ Máquinas | Descripción | Dificultad | Plataforma | Sistema Operativo | Imagen 
 [Anthem](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Anthem-THM.md) | RDP - Código Fuente - FFUF | FÁCIL | THM | WINDOWS |
 [OverPass](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Overpass-THM.md) | ssh2john - linpeas - python server - rev shell | Fácil | THM | LINUX |
 [Expose](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Expose-THM.md) | LFI - SqlMap - RevSHell - Find escala privilegios - Nano - /etc/passwd | FÁCIL | THM | LINUX | 
+[Madness](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Madness-THM.md) | Steghide - Hexeditor - Rot13 - Find /bin - exploit screen 3.5.0 | FÁCIL | THM | LINUX | <img width=50px height=50px src="https://github.com/user-attachments/assets/9befdd43-bd85-433d-8d33-350e6c2da193">
 [Services](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Services-THM.md) | Kerberos - Hashcat - EvilWinRm - Escala por servicios | MEDIO | THM | WINDOWS | <img width=50px height=50px src="https://github.com/user-attachments/assets/94ca00b0-9dc2-4b15-8ca6-6e4b0cd19362"> |
 [Builder](https://github.com/D4l1-web/HTB/blob/main/Medium/Builder-HTB.md) | Docker - Jenkins - john - ssh | MEDIO | HTB | LINUX |
 [Ultratech](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/UltraTech-THB.md) | Docker - ssh - FUZZ - CrackHash - RCE - RevShell | MEDIO | THM | LINUX |
