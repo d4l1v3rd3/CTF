@@ -173,6 +173,22 @@ Sacamos la primera flag de usuario
 
 https://github.com/calebstewart/pwncat
 
+# Escala de privilegios
+
+EMpezamos lo que de verdad me gusta, primero todo o podemos utilizar privesc o ir haciendo enumeraciones de servicios a ver que encontramos
+
+![image](https://github.com/user-attachments/assets/1f466369-f4ea-4d01-a6bc-f3e4da598d61)
+
+Nos encontramos dos directorios que no son muy normales "screen"
+
+![image](https://github.com/user-attachments/assets/99bc57a8-f157-44e1-af85-0ff8db60c234)
+
+Encontramos exploit de screen-4.5.0 https://www.exploit-db.com/exploits/41154
+
+GG
+
+![image](https://github.com/user-attachments/assets/85e6c2b2-e743-4590-ad09-734284bd6675)
+
 
 
 
