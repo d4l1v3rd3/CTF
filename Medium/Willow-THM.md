@@ -159,7 +159,19 @@ Ah esperate que no estan ni hasheadas jajaja
 
 ![image](https://github.com/user-attachments/assets/6ee602c3-2ee3-4b05-8afd-60fc46bc9e15)
 
+AJAJAJJAAJJA 
+
+![image](https://github.com/user-attachments/assets/354f4117-61f4-4904-82b7-23e236ca0d89)
+
+No era tan facil eh parece ser que nos han dicho que nos han dado la root flag antes y creo que es la imagen jaja
+
+```
+steghide extract -sf user.jpg
+```
+La contraseña es la contraseña del root
+
 GG
+
 
 
 
