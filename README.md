@@ -37,7 +37,7 @@ Máquinas | Descripción | Dificultad | Plataforma | Sistema Operativo | Imagen 
 [Madness](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Madness-THM.md) | Steghide - Hexeditor - Rot13 - Find /bin - exploit screen 3.5.0 | FÁCIL | THM | LINUX | <img width=50px height=50px src="https://github.com/user-attachments/assets/9befdd43-bd85-433d-8d33-350e6c2da193">
 [Services](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Services-THM.md) | Kerberos - Hashcat - EvilWinRm - Escala por servicios | MEDIO | THM | WINDOWS | <img width=50px height=50px src="https://github.com/user-attachments/assets/94ca00b0-9dc2-4b15-8ca6-6e4b0cd19362"> |
 [Builder](https://github.com/D4l1-web/HTB/blob/main/Medium/Builder-HTB.md) | Docker - Jenkins - john - ssh | MEDIO | HTB | LINUX |
-[Willow](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Willow-THM.md) | NFS - Desencriptado de RSA - ssh2john - Escala de privilegios con mount - Steghide | MEDIO | THM | LINUX | 
+[Willow](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Willow-THM.md) | NFS - Desencriptado de RSA - ssh2john - Escala de privilegios con mount - Steghide | MEDIO | THM | LINUX | <img width=50px height=50px src="https://github.com/user-attachments/assets/e5a4a9a5-f110-4a51-9c0f-9c0bcc6027a0">
 [Ultratech](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/UltraTech-THB.md) | Docker - ssh - FUZZ - CrackHash - RCE - RevShell | MEDIO | THM | LINUX |
 [Biohazard](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Biohazard-THM.md) | Tar - Gzip - Exiftool - Steghide - Walk - SSH - FTP | MEDIO | THM | LINUX |
 [StuxCTF](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/StuxCTF-THM.md) | Python - Decoding - Crypto - RevShell - LFI - Sudo - PHP | MEDIO | THM | LINUX |
