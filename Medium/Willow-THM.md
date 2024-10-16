@@ -90,5 +90,76 @@ for i in data:
     print(chr(i**args.d % args.n), end="")
 ```
 
+Lo primero que vemos es la importación del modulo "argarpe" especificando los argumentos que posteirormente utilizaremos.
+
+Simplemente cogemos los numeros que la private key nos ha dado y lo pasamos por el programa
+
+```
+python3 decoder.py code.txt 61527 37627 > rsakey
+```
+
+![image](https://github.com/user-attachments/assets/d06d7423-5690-433e-9b95-2b2c81a677a6)
+
+Ahora que tenemos la llave necesitaremos al mismisimo john para que nos des hashe
+
+![image](https://github.com/user-attachments/assets/d2cefa6e-0ac1-4d4b-ad2a-76cb70d87c62)
+
+```
+locate john
+```
+
+![image](https://github.com/user-attachments/assets/be44c0ce-5f2a-4870-87cc-ca8e5831553f)
+
+```
+chmod 600 rsakey
+ssh -i rsakey willow@ip
+```
+
+Ponemos la pss y estamos dentro
+
+Ya dentro vemos que hay un user.jpg doy por hecho que voy a tener que hacer un steghide o un exiftool
+
+![image](https://github.com/user-attachments/assets/cc97f320-0c67-4e94-b2a0-931e205f7e2b)
+
+Nos levantamos un python y lo cogemos o simplemente desde el ssh podemos tambien con scp
+
+```
+scp -i rsakey willow@ip:user.jpg
+```
+
+![image](https://github.com/user-attachments/assets/ef14c68f-38dd-4edb-a590-b294bfaf07f1)
+
+Tenemos el THM pensaba que era con exiftool y demás pero ha sido mas fácil
+
+# Escala de privilegios
+
+Vaya 
+
+![image](https://github.com/user-attachments/assets/dee484aa-ec75-48c5-b60e-a26d9e0af57f)
+
+Parece ser que tenemos acceso a las montura a ver que hay
+
+![image](https://github.com/user-attachments/assets/68ed1cba-86e4-4a2e-81cc-7dcf0eb2477c)
+
+Y no tenemos permiso, pero creo que podemos hacer cosas chulas
+
+Podemos ejecutar mount como ROot. Anteriormente usamos el comnado "mount" para acceder al NFS, pero como lo usamos con el ssh? no podemos utilizar "fdisk" y "lsblk"
+
+Vemos que el disco esta montado en /dev 
+
+![image](https://github.com/user-attachments/assets/87985f52-5654-4808-a20f-3ba116e219b9)
+
+qUE CONVENIENTE VAMOS A MONTARLO Y VER
+
+![image](https://github.com/user-attachments/assets/8058d292-0573-4ccd-bd28-3b04a46e8558)
+
+Más fácil de lo que pensaba. Vamos a ver si se pueden sacar los hashes
+
+Ah esperate que no estan ni hasheadas jajaja
+
+![image](https://github.com/user-attachments/assets/6ee602c3-2ee3-4b05-8afd-60fc46bc9e15)
+
+GG
+
 
 
