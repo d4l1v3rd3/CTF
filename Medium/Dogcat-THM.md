@@ -99,6 +99,45 @@ Y gg estamos dentro.
 
 ![image](https://github.com/user-attachments/assets/b8ee674e-c74c-484a-8038-7e2b927ea9f5)
 
+Posteriormente tenemos aquí dos opciones, intentar escalar privilegios o ir sacando las flags, como he podido ver con el www-data podemos sacar 3 flagas. Pista:
+
+```
+find / -type f -name (nombre)* 2>/dev/null
+```
+
+Por ahora voy a intentar escalar y como vemos tenemos la posibilidad de ejectuar con /usr/bin/env
+
+![image](https://github.com/user-attachments/assets/8832b510-d34f-4096-aec5-ee484ffc6853)
+
+Y esta vulnb es bastante fácil
+
+![image](https://github.com/user-attachments/assets/f892f79f-18e8-4e42-a89a-4f53b79f705a)
+
+Nos queda la ultima flag y como vemos estamos dentro de un container que no esta con la máquina en sí. 
+
+[Escapar del contenedor](https://www.bleepingcomputer.com/news/security/escaping-containers-to-execute-commands-on-play-with-docker-servers/?ref=fr33s0ul.tech)
+
+Como bien sabemos todo lo que sea una carpeta backup es interesante.
+
+![image](https://github.com/user-attachments/assets/afdb7e88-23d0-42f1-823d-87504060c6e8)
+
+Dentro de ella encontramos un backup.sh
+
+```
+#!/bin/bash
+tar cf /root/container/backup/backup.tar /root/container
+```
+
+Como vemos coge el backup.tar de /root/container, podemos añadir una rev shell dandonos acceso al mismo hosts del root.
+
+![image](https://github.com/user-attachments/assets/deffe675-a913-438f-baad-98a12a5a40d2)
+
+Vamos a ver si funciona y si nos da la rev shell.
+
+![image](https://github.com/user-attachments/assets/9ac19b60-b612-44c0-844e-6ed97e6f0440)
+
+GG HAPPY HACKINGGG!!!
+
 
 
 
