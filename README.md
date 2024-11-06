@@ -39,6 +39,7 @@ Máquinas | Descripción | Dificultad | Plataforma | Sistema Operativo | Imagen 
 [DogCat](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Dogcat-THM.md) | Path Traversal - LFI - RevShell - Env Escala Privilegios - Salir Container | MEDIO | THM | LINUX | <img width=50px height=50px src="https://github.com/user-attachments/assets/d706f19b-b548-4f24-b9ec-bc98b6f78aa4">
 [Builder](https://github.com/D4l1-web/HTB/blob/main/Medium/Builder-HTB.md) | Docker - Jenkins - john - ssh | MEDIO | HTB | LINUX |
 [Willow](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Willow-THM.md) | NFS - Desencriptado de RSA - ssh2john - Escala de privilegios con mount - Steghide | MEDIO | THM | LINUX | <img width=50px height=50px src="https://github.com/user-attachments/assets/e5a4a9a5-f110-4a51-9c0f-9c0bcc6027a0">
+[HackPark](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/HackPark-THM.md) | Hydra (http-post-form) - BlogEngine 3.3.6 (RCE) - Metasploit - WinPeas | MEDIO | THM | WINDOWS | <img width=50px height=50px src="https://github.com/user-attachments/assets/f4fb2ad3-5605-4479-843d-9c2cfc9ea371">
 [Ultratech](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/UltraTech-THB.md) | Docker - ssh - FUZZ - CrackHash - RCE - RevShell | MEDIO | THM | LINUX |
 [Biohazard](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Biohazard-THM.md) | Tar - Gzip - Exiftool - Steghide - Walk - SSH - FTP | MEDIO | THM | LINUX |
 [StuxCTF](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/StuxCTF-THM.md) | Python - Decoding - Crypto - RevShell - LFI - Sudo - PHP | MEDIO | THM | LINUX |
