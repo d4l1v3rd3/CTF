@@ -32,8 +32,9 @@ Máquinas | Descripción | Dificultad | Plataforma | Sistema Operativo | Imagen 
 [Kenobi](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Kenobi-THM.md) | Samba - FTP - Path Variable Manipulation | FÁCIL | THM | LINUX |
 [SteelMountain](https://github.com/d4l1v3rd3/CTF/blob/main/easy/SteelMountain-THM.md) | Metasploit - Powershell - HttpFile | FÁCIL | THM | WINDOWS |
 [Anthem](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Anthem-THM.md) | RDP - Código Fuente - FFUF | FÁCIL | THM | WINDOWS |
-[OverPass](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Overpass-THM.md) | ssh2john - linpeas - python server - rev shell | Fácil | THM | LINUX |
-[Expose](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Expose-THM.md) | LFI - SqlMap - RevSHell - Find escala privilegios - Nano - /etc/passwd | FÁCIL | THM | LINUX | 
+[OverPass](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Overpass-THM.md) | ssh2john - linpeas - python server - rev shell | FÁCIL | THM | LINUX |
+[Expose](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Expose-THM.md) | LFI - SqlMap - RevSHell - Find escala privilegios - Nano - /etc/passwd | FÁCIL | THM | LINUX |
+[Game Zone](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Game_Zone-THM.md) | SQLi - SQLMap - John - SSH Tunnel Reverso - Metasploit | FÁCIL | THM | LINUX |
 [Madness](https://github.com/d4l1v3rd3/CTF/blob/main/easy/Madness-THM.md) | Steghide - Hexeditor - Rot13 - Find /bin - exploit screen 3.5.0 | FÁCIL | THM | LINUX | <img width=50px height=50px src="https://github.com/user-attachments/assets/9befdd43-bd85-433d-8d33-350e6c2da193">
 [Services](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Services-THM.md) | Kerberos - Hashcat - EvilWinRm - Escala por servicios | MEDIO | THM | WINDOWS | <img width=50px height=50px src="https://github.com/user-attachments/assets/94ca00b0-9dc2-4b15-8ca6-6e4b0cd19362"> |
 [DogCat](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Dogcat-THM.md) | Path Traversal - LFI - RevShell - Env Escala Privilegios - Salir Container | MEDIO | THM | LINUX | <img width=50px height=50px src="https://github.com/user-attachments/assets/d706f19b-b548-4f24-b9ec-bc98b6f78aa4">
