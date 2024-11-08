@@ -48,4 +48,5 @@ Máquinas | Descripción | Dificultad | Plataforma | Sistema Operativo | Imagen 
 [GoldenEye](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/GoldenEye-THM.md) | Decoding - RevShell - Joomla | MEDIO | THM | LINUX |
 [CMesS](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/CMesS-THM.md) | Fuzzing Subdominios - RevShell - Cmess - Tar Escala de privilegios | MEDIO | THM | LINUX |
 [Atakktive](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Attacktive_Directory-THM.md) | ActiveDirectory - EvilWin - NTLM - Kerberos - Hash - SMB | MEDIO | THM | WINDOWS |
+[Daily Bugle](https://github.com/d4l1v3rd3/CTF/blob/main/Hard/Daily_Bugle-THM.md) | Robots.txt/README.txt - Joomla - SqlInjection - RevShell/Template - configuration.php - sudo yum/GTFO | DIFICIL | THM | LINUX | <img width=50px height=50px src="https://github.com/user-attachments/assets/3529753c-2c45-4528-855e-16d9cfd22ede">
 
