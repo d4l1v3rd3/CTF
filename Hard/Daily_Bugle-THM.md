@@ -117,4 +117,10 @@ Vamos a enumerar que privilegios tenemos
 
 ![image](https://github.com/user-attachments/assets/68b07506-c1c7-41fb-a1ea-06edf446660d)
 
+![image](https://github.com/user-attachments/assets/c68adeec-d4b7-42f9-bf8e-4f3e22c37329)
 
+Esto lo hemos sacado de gtfobins yum
+
+https://gtfobins.github.io/gtfobins/yum/
+
+GGGGG SOMOS ROOT HAPPY HACKINGGG
