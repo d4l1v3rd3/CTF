@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/e4ad0c23-c4c8-4cc0-8735-13708bcfad6e)# Introducción 
+# Introducción 
 
 Los dedos de McSkidy revoloteaban sobre el teclado y entrecerraba los ojos al ver el sitio web sospechoso que aparecía en su pantalla. Había visto docenas de campañas de malware como esta. Esta vez, el rastro la llevaba directamente a alguien que respondía al nombre "Glitch".
 
