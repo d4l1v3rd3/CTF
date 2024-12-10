@@ -50,5 +50,60 @@ Como vemos esta ip esta relacionada a los eventos de autenticación, nosotros po
 
 Como resultado vemos todos los ouputs de los eventos de autenticación. Ahora debemos expandir todo para entender el contexto del usuario y porque ha echo esto. y bajar al dia 29 de noviembre hasta el 1 de diciembre
 
-Para que no haya tantos 
+Para que no haya tantos eventos en estos tres dias, podemos filtrar por ejemplo el final del dia 1, y filtrar el usuario "service_admin" y la ip "10.0.11.11"
+
+Una vez hecho esto podemos ir filtrando mas cosas, vamos a filtrar solo por "authentication" y que no sea la ip "10.0.11.11"
+
+Después de aplicar dichos filtros podremos encontrar otras cosas chulas
+
+![image](https://github.com/user-attachments/assets/12e4e1d9-d01f-439b-8744-a67c4f86de40)
+
+Una vez aplicados los filtros veremos otra ip
+
+Si vamos abajo veremos un monton de intentos de login fallidos. Parece ser que esta es la IP mala acabada en .255.1 diferente a la que llevamos viendo otros dia. En alnalista debera investigar el script y las credenciales que se han perdido. Sin embargo, primero de todo cambiaremos las credenciales ya enocntraremos el script
+
+Vamos a quitar el "source.ip" y vamos a centrarnos en los eventos de autenticación. 
+
+Vemos que ha intentado un ataque por fuerza bruta
+
+El resultado que vmos es que posteirormente lo ha conseguido y ha ejecutado comandos de PowerShell una vez dentro
+
+Otra cosa importante es que todos los comandos han sido ofuscados o encriptados, sería interesante ver lo que hacian realmente
+
+![image](https://github.com/user-attachments/assets/b9b2d163-dafc-4c3e-8a24-44f723baeb65)
+
+Bueno luego nos cuenta una historia si os interesa pues pa lante
+
+Preguntas:
+
+¿Cual es el nombre de la cuenta de los intentos fallidos?
+
+```
+service_admin
+```
+
+¿CUantos intentos de logueo ha habido?
+
+```
+6791
+```
+
+¿Cual es la IP de Glitch?
+
+```
+10.0.255.1
+```
+
+¿CUando Glitch inicio sesión?
+
+```
+Dec 1, 2024 08:54:39.000
+```
+
+¿Que comando decodificado utilizo Glith para arreglar los sistemas?
+
+```
+Install-WindowsUpdate -AcceptAll -AutoReboot
+```
+
 
