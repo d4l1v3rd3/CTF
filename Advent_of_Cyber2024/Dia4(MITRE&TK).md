@@ -264,6 +264,38 @@ Cual es la flag fel archivo .txt que esta en el mismo directorio que PishingAtta
 THM{GlitchTestingForSpearphishing}
 ```
 
+Que Técnica ID puede ser interesante?
+
+```
+T1059
+```
+
+Que subtenica ID de ATT&CK esta focuseada con Widnows Command SHell
+
+```
+T1059.003
+```
+
+Cual es el nombre del Test atomico simulado
+
+```
+Simulate BlackByte Ransomware Print Bombing
+```
+
+Cual es el nombre usado para el test
+
+```
+Wareville_Ransomware.txt
+```
+
+Cuad es la flag alrededor del Test Atomico
+
+```
+THM{R2xpdGNoIGlzIG5vdCB0aGUgZW5lbXk=}
+```
+
+
+
 
 
 
