@@ -96,17 +96,17 @@ Así encontraremos todo
 # Preguntas
 
 Donde se ha subido la sehll?
-
+```
 /media/images/rooms/shell.php
-
+```
 Cual es la Ip utilizada para la shell
-
+```
 10.11.83.34
-
+```
 Cual es el contenido de la flag
-
+```
 THM{Gl1tch_Was_H3r3}
-
+```
 GG !!
 
 
