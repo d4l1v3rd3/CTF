@@ -174,8 +174,73 @@ Cuando mandemos este payload nos saldra /etc/hosts
 
 ## Explotación
 
-Ahora que tneemos ya el archivo y todo nos iremos a "repeater" dentro de wishlist.php
+Ahora que tneemos ya el archivo y todo nos iremos a "repeater" dentro de wishlist.php 
 
+Una vez mandado al repetear, encontraremos la consulta "POST" deberemos actualizar el payload XML y añadir nuevos datos para modificar dicha consulta
+
+
+![image](https://github.com/user-attachments/assets/62558957-a051-493f-9208-87f7021edaa2)
+
+jeje vemos que no es nada complicado y que tenemos la posibilidad de ver /etc/hosts vamos a cambiarlo por ejemplo a la página que no veiamos o a otros lugares
+
+Por ejemplo sabemos que casi todo lo de la web se guarda en "/var/www/html" podemos meter a ver que nos sale por ejemplo un /wishes/wish_1.txt
+
+![image](https://github.com/user-attachments/assets/2d537341-ebe5-463d-b6a1-ea0db29af402)
+
+Pues parece a ver funcionado vamos a ver otros productos a ver si sacamos algo interesante
+
+Encontramos de hecho la flag en el Wish_15
+
+# Conclusión
+
+Confirmamos que la aplicación es vulnerable, los desarroladores no tienen toda la culpa porque ellos no pueden saaber todo lo que pasa antes de Navidad. Sin embargo, es evidente que la seguridad se puede bypasear y testear la aplicación para que sea insegura
+
+Para ayudar para este tipo de ataques
+
+- Desactivar Entidades externas
+- Validar y sanitizar los inputs de usuario
+
+Después de descubrir la vulnearbilidad, McSkidy inmediatamente recuenta el archivo CHANGELOG que existe donde se guarda: (los commits)
+
+```
+commit 3f786850e387550fdab836ed7e6dc881de23001b (HEAD -> master, origin/master, origin/HEAD)
+Author: Mayor Malware - Wareville <mayor@wareville.org>
+Date:   Wed Dec 4 21:24:22 2024 +0200
+
+    Fixed the wishlist.php page THM{m4y0r_m4lw4r3_b4ckd00rs}
+
+commit 89e6c98d92887913cadf06b2adb97f26cde4849b (tag: v1.0.0)
+Author: Software - Wareville <software@wareville.org>
+Date:   Thu Dec 4 14:45:18 2024 +0200
+
+    Almost done with the wishlists page, needs to handle XML parsing
+
+commit 2b66fd261ee5c6cfc8de7fa466bab600bcfe4f69
+Author: Software - Wareville <software@wareville.org>
+Date:   Tue Dec 2 15:20:57 2024 +0200
+
+    Finally done with the landing page and initial CSS
+
+commit e983f374794de9c64e3d1c1de1d490c0756eeeff
+Author: Software - Wareville <software@wareville.org>
+Date:   Tue Dec 2 15:19:33 2024 +0200
+
+    Initial commit
+```
+
+# Preguntas
+
+Que bandera se descubre despues de navegar alrededor de los deseos?
+
+```
+THM{Brut3f0rc1n6_mY_w4y}
+```
+
+Que bandera se ve después del sabotaje?
+
+```
+THM{m4y0r_m4lw4r3_b4ckd00rs}
+```
 
 
 
