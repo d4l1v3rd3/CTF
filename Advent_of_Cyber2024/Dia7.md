@@ -577,6 +577,253 @@ Event_Time            Event_type        Event_Name                           Use
 2024-11-28T15:21:57Z  AwsApiCall        GetCostAndUsage                      glitch     53.94.201.69  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
 ```
 
+Un atacante experimentado puede cambiar estos valores, pero no borrar la información. Vamos a ver los logs del mismo usuario
+
+```
+.eventSource == "iam.amazonaws.com"
+```
+
+```
+jq -r '["Event_Time", "Event_Source", "Event_Name", "User_Name", "Source_IP"], (.Records[] | select(.eventSource == "iam.amazonaws.com") | [.eventTime, .eventSource, .eventName, .userIdentity.userName // "N/A", .sourceIPAddress // "N/A"]) | @tsv' cloudtrail_log.json | column -t -s $'\t'
+Event_Time            Event_Source       Event_Name          User_Name  Source_IP
+2024-11-28T15:21:26Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:29Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:30Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:30Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:30Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:31Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:31Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:30Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:25Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:31Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:31Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:31Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:31Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:33Z  iam.amazonaws.com  GetPolicy           mcskidy    53.94.201.69
+2024-11-28T15:21:33Z  iam.amazonaws.com  GetPolicy           mcskidy    53.94.201.69
+2024-11-28T15:21:31Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:33Z  iam.amazonaws.com  GetPolicy           mcskidy    53.94.201.69
+2024-11-28T15:21:33Z  iam.amazonaws.com  GetPolicy           mcskidy    53.94.201.69
+2024-11-28T15:21:32Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:32Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:36Z  iam.amazonaws.com  CreateLoginProfile  mcskidy    53.94.201.69
+2024-11-28T15:21:36Z  iam.amazonaws.com  AttachUserPolicy    mcskidy    53.94.201.69
+2024-11-28T15:21:32Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:32Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:32Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:32Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:32Z  iam.amazonaws.com  ListPolicies        mcskidy    53.94.201.69
+2024-11-28T15:21:44Z  iam.amazonaws.com  ListUsers           mcskidy    53.94.201.69
+2024-11-28T15:21:35Z  iam.amazonaws.com  CreateUser          mcskidy    53.94.201.69
+```
+
+Basado en resultados vemos muchas listas de politicas ignorando eventos, vemos una gran actividad envolviendo la creación de usuario, atacando una politica y listando usuarios con la ip
+
+Vamos a ver mas detalles de creación de usuario
+
+```
+jq '.Records[] |select(.eventSource=="iam.amazonaws.com" and .eventName== "CreateUser")' cloudtrail_log.json
+{
+  "eventVersion": "1.10",
+  "userIdentity": {
+    "type": "IAMUser",
+    "principalId": "AIDAXRMKYT5O6Z6AZBXU6",
+    "arn": "arn:aws:iam::518371450717:user/mcskidy",
+    "accountId": "518371450717",
+    "accessKeyId": "ASIAXRMKYT5OVOMUJU3P",
+    "userName": "mcskidy",
+    "sessionContext": {
+      "attributes": {
+        "creationDate": "2024-11-28T15:20:54Z",
+        "mfaAuthenticated": "false"
+      }
+    }
+  },
+  "eventTime": "2024-11-28T15:21:35Z",
+  "eventSource": "iam.amazonaws.com",
+  "eventName": "CreateUser",
+  "awsRegion": "ap-southeast-1",
+  "sourceIPAddress": "53.94.201.69",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+  "requestParameters": {
+    "userName": "glitch"
+  },
+  "responseElements": {
+    "user": {
+      "path": "/",
+      "userName": "glitch",
+      "userId": "AIDAXRMKYT5O7SKYSEJBQ",
+      "arn": "arn:aws:iam::518371450717:user/glitch",
+      "createDate": "Oct 22, 2024 3:21:35 PM"
+    }
+  },
+  "requestID": "415e0a96-f1b6-429a-9cac-1c921c0b85f5",
+  "eventID": "64dd59fc-c1b1-4f2d-b15c-b005911f1de4",
+  "readOnly": false,
+  "eventType": "AwsApiCall",
+  "managementEvent": true,
+  "recipientAccountId": "518371450717",
+  "eventCategory": "Management",
+  "tlsDetails": {
+    "tlsVersion": "TLSv1.3",
+    "cipherSuite": "TLS_AES_128_GCM_SHA256",
+    "clientProvidedHostHeader": "iam.amazonaws.com"
+  },
+  "sessionCredentialFromConsole": "true"
+}
+```
+
+## Logs nunca mueres
+
+Ahora vamos a buscar mas por ip
+
+```
+jq -r '["Event_Time", "Event_Source", "Event_Name", "User_Name", "Source_IP"], (.Records[] | select(.sourceIPAddress=="53.94.201.69") | [.eventTime, .eventSource, .eventName, .userIdentity.userName // "N/A", .sourceIPAddress // "N/A"]) | @tsv' cloudtrail_log.json | column -t -s $'\t'
+Event_Time            Event_Source                         Event_Name               User_Name      Source_IP
+2024-11-28T15:20:38Z  s3.amazonaws.com                     HeadBucket               mayor_malware  53.94.201.69
+2024-11-28T15:22:12Z  s3.amazonaws.com                     HeadBucket               glitch         53.94.201.69
+2024-11-28T15:22:23Z  s3.amazonaws.com                     ListObjects              glitch         53.94.201.69
+2024-11-28T15:22:25Z  s3.amazonaws.com                     ListObjects              glitch         53.94.201.69
+2024-11-28T15:22:39Z  s3.amazonaws.com                     PutObject                glitch         53.94.201.69
+2024-11-28T15:22:39Z  s3.amazonaws.com                     PreflightRequest         N/A            53.94.201.69
+2024-11-28T15:22:44Z  s3.amazonaws.com                     ListObjects              glitch         53.94.201.69
+2024-11-28T15:18:37Z  signin.amazonaws.com                 ConsoleLogin             mayor_malware  53.94.201.69
+2024-11-28T15:20:54Z  signin.amazonaws.com                 ConsoleLogin             mcskidy        53.94.201.69
+2024-11-28T15:21:54Z  signin.amazonaws.com                 ConsoleLogin             glitch         53.94.201.69
+2024-11-28T15:21:26Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:29Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:30Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:30Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:30Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:31Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:31Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:30Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:25Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:31Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:31Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:31Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:31Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:33Z  iam.amazonaws.com                    GetPolicy                mcskidy        53.94.201.69
+2024-11-28T15:21:33Z  iam.amazonaws.com                    GetPolicy                mcskidy        53.94.201.69
+2024-11-28T15:21:31Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:33Z  iam.amazonaws.com                    GetPolicy                mcskidy        53.94.201.69
+2024-11-28T15:21:33Z  iam.amazonaws.com                    GetPolicy                mcskidy        53.94.201.69
+2024-11-28T15:21:32Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:32Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:36Z  iam.amazonaws.com                    CreateLoginProfile       mcskidy        53.94.201.69
+2024-11-28T15:21:36Z  iam.amazonaws.com                    AttachUserPolicy         mcskidy        53.94.201.69
+2024-11-28T15:21:32Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:32Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:32Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:32Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:32Z  iam.amazonaws.com                    ListPolicies             mcskidy        53.94.201.69
+2024-11-28T15:21:44Z  iam.amazonaws.com                    ListUsers                mcskidy        53.94.201.69
+2024-11-28T15:21:35Z  iam.amazonaws.com                    CreateUser               mcskidy        53.94.201.69
+2024-11-28T15:21:45Z  organizations.amazonaws.com          DescribeOrganization     mcskidy        53.94.201.69
+2024-11-28T15:21:57Z  ce.amazonaws.com                     GetCostAndUsage          glitch         53.94.201.69
+2024-11-28T15:21:57Z  cost-optimization-hub.amazonaws.com  ListEnrollmentStatuses   glitch         53.94.201.69
+2024-11-28T15:21:57Z  health.amazonaws.com                 DescribeEventAggregates  glitch         53.94.201.69
+2024-11-28T15:22:12Z  s3.amazonaws.com                     ListBuckets              glitch         53.94.201.69
+2024-11-28T15:21:57Z  health.amazonaws.com                 DescribeEventAggregates  glitch         53.94.201.69
+2024-11-28T15:21:57Z  ce.amazonaws.com                     GetCostAndUsage          glitch         53.94.201.69
+2024-11-22T11:08:03Z  signin.amazonaws.com                 ConsoleLogin             mayor_malware  53.94.201.69
+2024-11-23T07:19:01Z  signin.amazonaws.com                 ConsoleLogin             mayor_malware  53.94.201.69
+2024-11-24T02:28:17Z  signin.amazonaws.com                 ConsoleLogin             mayor_malware  53.94.201.69
+2024-11-25T21:48:22Z  signin.amazonaws.com                 ConsoleLogin             mayor_malware  53.94.201.69
+2024-11-26T22:55:51Z  signin.amazonaws.com                 ConsoleLogin             mayor_malware  53.94.201.69
+```
+
+Basados en comandos hay tres usuarios (mayor_malware, glitch y mcskidy) accediendo desde la misma ip. 
+
+Vamos a centrarnos en un usuario si todos van con la misma ip 
+
+```
+jq -r '["Event_Time","Event_Source","Event_Name", "User_Name","User_Agent","Source_IP"],(.Records[] | select(.userIdentity.userName=="PLACEHOLDER") | [.eventTime, .eventSource, .eventName, .userIdentity.userName // "N/A",.userAgent // "N/A",.sourceIPAddress // "N/A"]) | @tsv' cloudtrail_log.json | column -t -s $'\t'
+```
+
+Cambiamos "PLACEHOLDER" por el usuario
+
+- Que ip se usa normalmente para loguea AWS
+- Que navegador se usa
+- Que similitudes hay y diferencias entre ip y SO
+
+- El incidente empieza con el usuario mcskidy de la ip 53.94.201.69
+- Despues se crea una cuenta llamada "glitch"
+- Glich se asigna con permisos de administrador
+- La cuenta de glich accede al "cubo" S· y lo llama "wareville-care4wares" y cambia el arcivo. La IP es la misma en el acceso de las 3 cuentas
+- El UserAgent y la IP del usuario mcskidy son diferentes
+
+# Evidencias definitivas
+McSkidy propone buscar mas fuente y pillar el incidente, vamos a cooperar con "amazon Relational Database Service (RDS)" 
+
+```
+~/wareville_logs/rds.log
+```
+
+```
+grep INSERT rds.log
+```
+
+Veremos INSERTS y demás de dicho usuario
+
+![image](https://github.com/user-attachments/assets/7d85bea8-f2ee-408b-85ea-be67bd991bcd)
+
+# Preguntas
+
+Que otra actividad ha echo el usuario glich dentro de ListObject Action?
+
+```
+PutObject
+```
+
+Cual es la IP usada por los cubos S3 actividades por glitch
+
+```
+53.94.201.69
+```
+
+Basado en el archivo eventSource,q que servicio de AWS a generado una consola de evento?
+
+```
+signin.amazonaws.com
+```
+
+Cuando se hizo el evento ConsoleLogin
+
+```
+2024-11-28T15:21:54Z
+```
+
+Cual es el suaurio creado por mcsikdy?
+
+```
+glitch
+```
+
+Que tipo de privilegio se dio el usuario?
+
+```
+AdministratorAccess
+```
+
+Que Ip utiliza normalmente Mayor Malware para iniciar sesión
+
+```
+53.94.201.69
+```
+
+Cual es la IP actual de McSkidy
+
+```
+31.210.15.79
+```
+
+Cual es la cuenta de banco de Mayor Malware
+
+```
+2394 6912 7723 1294
+```
+
 
 
 
