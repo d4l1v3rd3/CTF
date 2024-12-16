@@ -516,5 +516,67 @@ jq -r '.Records[] | select(.eventSource == "s3.amazonaws.com" and .requestParame
 jq -r '["Event_Time", "Event_Name", "User_Name", "Bucket_Name", "Key", "Source_IP"],(.Records[] | select(.eventSource == "s3.amazonaws.com" and .requestParameters.bucketName=="wareville-care4wares") | [.eventTime, .eventName, .userIdentity.userName // "N/A",.requestParameters.bucketName // "N/A", .requestParameters.key // "N/A", .sourceIPAddress // "N/A"]) | @tsv' cloudtrail_log.json | column -t
 ```
 
+Si observamos el nuevo comando define mas brackets y columnas especifican filtros combinados, seleccionamos arrays, el proceso y los filt
+
+- Cuantos logs tenemos en el bucket?
+- Que usuario a intentado logearse
+- Que ccion ha echo con el archivo "eventName"
+- Que archivos especificos se han editado
+- Cual es el tiempo entre logs
+- Cual es la IP de los logs
+
+Al observar los resultados, 5 eventos registrados parecen estar relacionados con el depósito wareville-care4wares, y casi todos están relacionados con el usuario glitch. Además de enumerar los objetos dentro del depósito (evento ListOBject), el detalle más notable es que el usuario glitch cargó el archivo wareville-bank-account-qr.png el 28 de noviembre. Esto parece coincidir con la información que recibimos sobre que no se habían realizado donaciones 2 días después de que se envió el enlace.
+
+McSkidy está seguro de que no había ningún usuario glitch en el sistema antes. Tampoco hay nadie en el ayuntamiento con ese nombre. La única persona que McSkidy conoce con ese nombre es el hacker que se mantiene en secreto. McSkidy sugiere que investiguemos a este usuario anómalo.
+
+# McSkidy nos ha engañado?
+
+McSkidy quiere ver la anomalia de la cuenta del usuario, cuand ose creo, como
+
+```
+jq -r '["Event_Time", "Event_Source", "Event_Name", "User_Name", "Source_IP"],(.Records[] | select(.userIdentity.userName == "glitch") | [.eventTime, .eventSource, .eventName, .userIdentity.userName // "N/A", .sourceIPAddress // "N/A"]) | @tsv' cloudtrail_log.json | column -t -s $'\t'
+Event_Time            Event_Source                         Event_Name                           User_Name  Source_IP
+2024-11-28T15:22:12Z  s3.amazonaws.com                     HeadBucket                           glitch     53.94.201.69
+2024-11-28T15:22:23Z  s3.amazonaws.com                     ListObjects                          glitch     53.94.201.69
+2024-11-28T15:22:25Z  s3.amazonaws.com                     ListObjects                          glitch     53.94.201.69
+2024-11-28T15:22:39Z  s3.amazonaws.com                     PutObject                            glitch     53.94.201.69
+2024-11-28T15:22:44Z  s3.amazonaws.com                     ListObjects                          glitch     53.94.201.69
+2024-11-28T15:21:54Z  signin.amazonaws.com                 ConsoleLogin                         glitch     53.94.201.69
+2024-11-28T15:21:57Z  ce.amazonaws.com                     GetCostAndUsage                      glitch     53.94.201.69
+2024-11-28T15:21:57Z  cost-optimization-hub.amazonaws.com  ListEnrollmentStatuses               glitch     53.94.201.69
+2024-11-28T15:21:57Z  health.amazonaws.com                 DescribeEventAggregates              glitch     53.94.201.69
+2024-11-28T15:22:12Z  s3.amazonaws.com                     ListBuckets                          glitch     53.94.201.69
+2024-11-28T15:22:14Z  s3.amazonaws.com                     GetStorageLensConfiguration          glitch     AWS Internal
+2024-11-28T15:22:14Z  s3.amazonaws.com                     GetStorageLensDashboardDataInternal  glitch     AWS Internal
+2024-11-28T15:22:13Z  s3.amazonaws.com                     GetStorageLensDashboardDataInternal  glitch     AWS Internal
+2024-11-28T15:21:57Z  health.amazonaws.com                 DescribeEventAggregates              glitch     53.94.201.69
+2024-11-28T15:21:57Z  ce.amazonaws.com                     GetCostAndUsage                      glitch     53.94.201.69
+```
+
+El resultado vemos que el usuario Glitch targeteo el s3. El evento notable de "consolelogin" nos dice que la cuenta se uso para acceder a AWS
+
+Necesitamos mas información como herramientas y consultas usadas vamos a ver el "userAgent"
+
+```
+jq -r '["Event_Time", "Event_type", "Event_Name", "User_Name", "Source_IP", "User_Agent"],(.Records[] | select(.userIdentity.userName == "glitch") | [.eventTime,.eventType, .eventName, .userIdentity.userName //"N/A",.sourceIPAddress //"N/A", .userAgent //"N/A"]) | @tsv' cloudtrail_log.json | column -t -s $'\t'
+Event_Time            Event_type        Event_Name                           User_Name  Source_IP     User_Agent
+2024-11-28T15:22:12Z  AwsApiCall        HeadBucket                           glitch     53.94.201.69  [S3Console/0.4, aws-internal/3 aws-sdk-java/1.12.750 Linux/5.10.226-192.879.amzn2int.x86_64 OpenJDK_64-Bit_Server_VM/25.412-b09 java/1.8.0_412 vendor/Oracle_Corporation cfg/retry-mode/standard]
+2024-11-28T15:22:23Z  AwsApiCall        ListObjects                          glitch     53.94.201.69  [S3Console/0.4, aws-internal/3 aws-sdk-java/1.12.750 Linux/5.10.226-192.879.amzn2int.x86_64 OpenJDK_64-Bit_Server_VM/25.412-b09 java/1.8.0_412 vendor/Oracle_Corporation cfg/retry-mode/standard]
+2024-11-28T15:22:25Z  AwsApiCall        ListObjects                          glitch     53.94.201.69  [S3Console/0.4, aws-internal/3 aws-sdk-java/1.12.750 Linux/5.10.226-192.879.amzn2int.x86_64 OpenJDK_64-Bit_Server_VM/25.412-b09 java/1.8.0_412 vendor/Oracle_Corporation cfg/retry-mode/standard]
+2024-11-28T15:22:39Z  AwsApiCall        PutObject                            glitch     53.94.201.69  [Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36]
+2024-11-28T15:22:44Z  AwsApiCall        ListObjects                          glitch     53.94.201.69  [S3Console/0.4, aws-internal/3 aws-sdk-java/1.12.750 Linux/5.10.226-193.880.amzn2int.x86_64 OpenJDK_64-Bit_Server_VM/25.412-b09 java/1.8.0_412 vendor/Oracle_Corporation cfg/retry-mode/standard]
+2024-11-28T15:21:54Z  AwsConsoleSignIn  ConsoleLogin                         glitch     53.94.201.69  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+2024-11-28T15:21:57Z  AwsApiCall        GetCostAndUsage                      glitch     53.94.201.69  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+2024-11-28T15:21:57Z  AwsApiCall        ListEnrollmentStatuses               glitch     53.94.201.69  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+2024-11-28T15:21:57Z  AwsApiCall        DescribeEventAggregates              glitch     53.94.201.69  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+2024-11-28T15:22:12Z  AwsApiCall        ListBuckets                          glitch     53.94.201.69  [S3Console/0.4, aws-internal/3 aws-sdk-java/1.12.750 Linux/5.10.226-193.880.amzn2int.x86_64 OpenJDK_64-Bit_Server_VM/25.412-b09 java/1.8.0_412 vendor/Oracle_Corporation cfg/retry-mode/standard]
+2024-11-28T15:22:14Z  AwsApiCall        GetStorageLensConfiguration          glitch     AWS Internal  AWS Internal
+2024-11-28T15:22:14Z  AwsApiCall        GetStorageLensDashboardDataInternal  glitch     AWS Internal  AWS Internal
+2024-11-28T15:22:13Z  AwsApiCall        GetStorageLensDashboardDataInternal  glitch     AWS Internal  AWS Internal
+2024-11-28T15:21:57Z  AwsApiCall        DescribeEventAggregates              glitch     53.94.201.69  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+2024-11-28T15:21:57Z  AwsApiCall        GetCostAndUsage                      glitch     53.94.201.69  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+```
+
+
 
 
