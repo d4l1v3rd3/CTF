@@ -40,3 +40,11 @@ Cada negocio sera diferentes, pero la ciberseguridad directamente contribuye a r
 
 # Identificar los Risk
 
+Para evaluar el riesgo, nosotros identificamos primero los factores que causan reputación o resultado de fallos de ciber. El ejercicio requiere cuidado del ataque de la organización y identificar areas que usa dicha organización. Ejemplos para identificar:
+
+- Un servidor web no parcheado
+- Una cuenta con altos privilegios sin controles de seguridad
+- Una tercera parte de los vendedores se infectan intentando conectarse a la red de la organización
+- El sistema suportea y acaba con el vendedor en producción
+
+Una organización identifica otros fallos adicionales de esos ejemplos. Sin embarjo, simplemente es identfiicar 
