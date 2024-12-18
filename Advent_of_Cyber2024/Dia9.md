@@ -47,4 +47,61 @@ Para evaluar el riesgo, nosotros identificamos primero los factores que causan r
 - Una tercera parte de los vendedores se infectan intentando conectarse a la red de la organización
 - El sistema suportea y acaba con el vendedor en producción
 
-Una organización identifica otros fallos adicionales de esos ejemplos. Sin embarjo, simplemente es identfiicar 
+Una organización identifica otros fallos adicionales de esos ejemplos. Sin embargo, simplemente es identfiicar.
+
+# Asignar probabilidad a cada riesgo
+
+La calidad del riesgo, se identifica de lo probable que pueda llegar a materializarse
+
+- Improbable
+- Remoto
+- Ocasional
+- Probable
+- Frecuente
+
+# Asignar un impacto a cada riesgo
+
+Una vez esta identificado dicho riesgo y la probablidad de que pueda llegar, el siguiente paso es la calidad del impacto a la organización o el tipo de que va a ser, brecha, etc.
+
+- Informacion
+- Bajo
+- Medio
+- Alto
+- Critico
+
+# Propiedad de un riesgo
+
+El ultimo paso es decidir que vamos a hacer con dicho riesgo, si lo vamos a mitigar, aceptar, rechazar, etc..
+
+# Internos y riesgos de terceras partes
+
+Los riesgos no solamente son para tu organización, acceden a tu organizcación si, pero luego escala a terceras partes.
+
+Simplemente llegamos a que terceras partes también deberian ayudarnos y nosotros poner de nuestras parte
+
+# Conseguir un socio
+
+Ahora que sabemos el conocimiento vamos a hacer la práctica
+
+Tenemos una web
+
+# Preguntas
+
+Que significa GRC
+
+```
+Governance, Risk, and Compliance
+```
+
+CUal es la flag recibida después de hacer la evaluación de riesgos
+
+```
+THM{R15K_M4N4G3D}
+```
+
+
+
+
+
+
+
