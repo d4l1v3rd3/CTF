@@ -119,9 +119,15 @@ Una vez estes dentro del email, primero cogeremos y cambiaremos el nombre de dic
 
 Una vez hecho esto prepararemos un correo 
 
+![image](https://github.com/user-attachments/assets/4de93a85-013d-4e55-a634-efd18c277aee)
 
+![image](https://github.com/user-attachments/assets/0c0cbf8c-4285-4cd1-b1aa-11f56e4c9192)
 
+Así es como se vería
 
+![image](https://github.com/user-attachments/assets/d0cb9b87-9cd5-4334-9b39-392d88938920)
+
+Obviamente para dejar claro, que seguramente esto en un entorno real, no pase ni el correo electrónico, se puede utilizar pngs o etc, y a la hora de abrir el archivo os salga alguna cosita de que tiene macros, pero como arprendizaje bien genial un saludo. 
 
 
 
