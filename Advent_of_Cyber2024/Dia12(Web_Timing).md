@@ -86,6 +86,29 @@ Elegiremos mandar en paralelo
 
 Como vemos estamos en negativo vaya
 
+# Verificar el código
+
+Supongamos que somos penetration testers.
+
+```
+ if user['balance'] >= amount:
+        conn.execute('UPDATE users SET balance = balance + ? WHERE account_number = ?', 
+                     (amount, target_account_number))
+        conn.commit()
+
+        conn.execute('UPDATE users SET balance = balance - ? WHERE account_number = ?', 
+                     (amount, session['user']))
+        conn.commit()
+```
+
+En el código si el balance es igual o mayor a la cantidad se actualiza el saldo del destinatario con el comando UPDATE y luego seguido se confirma. Luego s eactualiza el saldo del remitente actualizando el balance y luego confirma nuevamente. Dado que las actualizacione se confirman por separado y no formas parte de una única trasacción. 
+
+
+# Tiempo por acción
+
+Ahora vamos a entender la vulnerabilidad, asistiendo en validad usando la cuenta del glitch 101:glitch para trasnferir 2000 a la cuenta 111
+
+
 
 
 
