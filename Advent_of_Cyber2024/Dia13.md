@@ -29,3 +29,25 @@ Mientras el coste de performace, teenmos problemas de seguridad necesidad de mon
 
 # Que es el Websocket message manipulation?
 
+Cuando un atacante intercepta y cambia los mensajes entre la aplicacion web y el servidor. 
+
+No es como una consulta HTTP regular, WebSOcket deja la conexión abierta, habiendo una conexión constante.
+
+En este tipo de ataques, un hacket interceta y retuerce estos mensajes que se estan enviando. 
+
+Este tipo de manipulacion puede llegar a dejar insertar comandos maliciosos
+
+Este tip ode ataque sson muy peligrosos si no hay una protección, como Encriptación, con AES o RSA 
+
+# Explotación
+
+Vamos a abrir Burp para coger las consultas, configuramos para interceptar consultas a la hora de clickar mensajes, con lo cual trackearemos los vehiculos
+
+![image](https://github.com/user-attachments/assets/d517b421-d5ee-4a7e-8308-f7ccdd03695a)
+
+
+
+
+
+
+
