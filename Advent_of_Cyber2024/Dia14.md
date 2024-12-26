@@ -23,3 +23,56 @@ Es una entidad en la que nos fiamos, por ejemplo GlobalSign, Policia Nacional.
 
 ## Certificados autofirmados vs Certificados con CA
 
+EL proceso de adquirir un certificado con una CA es largo, deberemos crear un certificado y posteriormente enviarlo a una CA y que te lo firme. Si no tienes herramientas que automaticen esto, este proceso puede tardar semanas. 
+
+- Navegadores normalmente no tienen certificados auto firmados porque no tienen verificacion de terceras partes. El navegador no conoce si el certificado es autentico y tiene malos propositos
+- Los certificados de entidades, van de otra mano, si una CA te verifica, confirma la entidad de la web
+
+# Preparacion
+
+Primero de todo añadiremos al dns dicha maquina
+
+```
+echo "ip dominio" >> etc/hosts
+```
+
+Para verificar si queremos 
+
+```
+cat /etc/hosts
+```
+
+Vamos a la web
+
+![image](https://github.com/user-attachments/assets/241af33e-8ed9-4135-bef8-72d433750063)
+
+Podemos ver el certificado y aprender más, posteriormente entrar a la web
+
+![image](https://github.com/user-attachments/assets/9d658a75-978f-4369-803a-16b8bf6f8b17)
+
+Si queremos sniffear el tráfico deberemos utilizar el proxy de burp, siendo nosotro sel medio entre townspeope y Gift Scheduler.
+
+Abrimos BurpSuite
+
+![image](https://github.com/user-attachments/assets/3c508e7e-ab57-4280-a4e1-3face5daf3f4)
+
+Configuramos un proxy de escucha apuntando a nuestra IP
+
+![image](https://github.com/user-attachments/assets/2906393e-92e8-408e-94e6-61d9ecd84a35)
+
+Agregamos ahora el siguiente dominio:
+
+```
+echo "10.10.103.13 wareville-gw" >> /etc/hosts
+```
+
+![image](https://github.com/user-attachments/assets/fb4aeaca-1963-4c65-8446-2e0edb7d8c74)
+
+![image](https://github.com/user-attachments/assets/48f7f6c1-cda7-43cf-a122-79cfbb117f60)
+
+Lo que estamos haciendo es ser nosotros el la puerta de enlace teniendo que pasar primero por nosotros.
+
+
+
+
+
