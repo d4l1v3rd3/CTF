@@ -13,3 +13,6 @@ La IA es generalmente una tecnologia que tiene la inteligencia como para decidir
 Igualmente, una IA aprende de multiples inputs y posibles outputs. El modelo aprende a decir los output mas apropiados a los inputs realizados. Este proceso requiere una cantida d de datos para que la AI sea entrenada y llegue a niveles "aceptables". 
 
 Especialmente los chatbots, son diseñados para seguir las intrucciones del desarrollador
+
+# IA en la práctica
+
