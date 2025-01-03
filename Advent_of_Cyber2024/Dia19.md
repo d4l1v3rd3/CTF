@@ -38,4 +38,64 @@ Hello, 1!
 Hello, 1!
 ```
 
-Antes de proceder vamos a ejecutar "frida-trace" para la primera vez crea handlers para cada funcion de librear usando el juego. Editando archivos, 
+Antes de proceder vamos a ejecutar "frida-trace" para la primera vez crea handlers para cada funcion de librear usando el juego. Editando archivos, podemos decir a frida que interactue y llame a las funciones para ver los valores
+
+```
+frida-trace .main -i '*'
+```
+
+Ahora podremos ver los __handlers__ directory, conteniendo archivos Javascripts diciendonos las funciones que llaman a las librerias. Estas funciones se llaman por ejemplo "say_hello()" y con su correspondiente ruta.
+
+Ahora deberemos entender que hace dicho archivo
+
+- onEnter : esta funciona, es muy interesatne por la variable args.
+- onLeave: Interesante por la variable rretval
+
+```
+// Frida JavaScript script to intercept `say_hello` 
+Interceptor.attach(Module.getExportByName(null, "say_hello"), { 
+    onEnter: function (log, args, state) { }, 
+    onLeave: function (log, retval, state) { } 
+});
+```
+
+Tenemos pointers y variables porque si se cambiar cualquier valor, es permanente, podemos modificar un valor copiado, para que no persista
+
+Devolviendo el objetivo, queremos que el parametro con 1337 remplaze los argumentos de la array
+
+Frida tiene una funcion llamda ptr() es exactamente lo uqe necestiamos
+
+```
+// say_hello.js
+// Hook the say_hello function from libhello.so
+
+// Attach to the running process of "main"
+Interceptor.attach(Module.findExportByName(null, "say_hello"), {
+    onEnter: function (args) {
+        // Intercept the original argument (args[0] is the first argument)
+        var originalArgument = args[0].toInt32();
+        console.log("Original argument: " + originalArgument);
+        // Replace the original value with 1337
+        args[0] = ptr(1337);
+        log('say_hello()');
+    }
+});
+```
+
+Cuando ejecutamos y ponemos la funciona 1337
+
+```
+frida-trace ./main -i 'say*'
+Hello, 1337!
+Original argument: 1
+/* TID 0x5ec9 */
+11 ms  say_hello()
+Hello, 1337!
+Original argument: 1
+```
+
+Ahora que lo entendemos mejor vamos a ello
+
+
+
+
