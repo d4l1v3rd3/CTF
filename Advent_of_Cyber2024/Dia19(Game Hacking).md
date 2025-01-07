@@ -96,6 +96,72 @@ Original argument: 1
 
 Ahora que lo entendemos mejor vamos a ello
 
+# Práctica
+
+Con la máquina iniciada nos iremos a la ruta
+
+```
+cd /home/ubuntu/Desktop/TryUnlockMe && ./TryUnlockMe
+```
+
+Exploraremos el juego, hasta llegar a un pinguino preguntando por un PIN
+
+![image](https://github.com/user-attachments/assets/674e7f55-076a-4f27-8253-a1128d70b347)
+
+Si terminamos el juego y ejecutamos frida, interceta todas las funciones de "libaocgame.so" libreria que esta prsente
+
+```
+frida-trace ./TryUnlockMe -i 'libaocgame.so!*'
+```
+
+Si jugamos un poco en el juego nos dara un Output 
+
+![image](https://github.com/user-attachments/assets/b4edfcac-489e-4f7e-b77e-cc0c59644e54)
+
+![image](https://github.com/user-attachments/assets/e5da12f6-728c-4103-8e90-7d3a5c5c2087)
+
+Con el comando 
+
+```
+code .
+```
+
+Se no abrira el Visual Studio
+
+![image](https://github.com/user-attachments/assets/f5dfbbe1-8954-42db-a5d6-989009c7df28)
+
+En este punto deberemos seleccionar el output anteriormente definido y ver las funciones
+
+Con el numero salido podremos sacar la primera flag
+
+![image](https://github.com/user-attachments/assets/9eb05166-f6b3-40c3-b002-483dcc00eb70)
+
+
+
+![image](https://github.com/user-attachments/assets/38fc1cd8-1c8e-4d39-b24f-e605630815fb)
+
+añadiremos a la funcion 
+
+```
+log("Parameter:" + args[0].toInt32());
+```
+
+![image](https://github.com/user-attachments/assets/1150320a-d15b-4e3f-a379-1f998fc74dba)
+
+# Ganar monedas
+
+El juego te hace ganar dinero usando el pc, para conseguir muchas monedas es tedioso. Podemos usar Frida para interceptar la funcion a la hora de comprar un objeto. Esto es bueno por la función de "buy_item" 
+
+![image](https://github.com/user-attachments/assets/9eb3aeaf-db2f-4909-aaa8-2c768468c5ee)
+
+Vamos a ver si funciona
+
+![image](https://github.com/user-attachments/assets/d6bb9666-3148-412a-bd79-fec4edc3f051)
+
+![image](https://github.com/user-attachments/assets/a8d22e01-f307-4878-88bb-c6eee649bf16)
+
+La verdad que no me estoy enterando mucho no me gusta mucho este tema. Simplemente lo dejare aquí y acabare el día. Esa chulo para la gente que le guste este tipo de cosas.
+
 
 
 
