@@ -125,6 +125,9 @@ C:\WINDOWS\system32\cmd.exe
 
 7) now you'll have an escalated privileges command prompt.
 
+![image](https://github.com/user-attachments/assets/4159f237-7889-4e5d-8aae-4493dff27567)
+
+
 GG !!!!
 
 
