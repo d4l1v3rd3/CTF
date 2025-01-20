@@ -84,4 +84,31 @@ Estamos dentro del FTP a ver que podemos sacar
 
 ![image](https://github.com/user-attachments/assets/bc5c3407-106b-4986-b352-1261ca7908b7)
 
+Tenemos varias archivos importantes, los descargamos todos y encontramos dos archivos chulos el otheruser y el aa.jpg
+
+probamos con la contraseña: password por la cara y si funciona
+
+```
+steghide extract -sf aa.jpg
+```
+
+Encontramos parcee ser una contraseña en el archivo "sado"
+
+En el anterior archivo que hemos visto parece ser el usuario slade:M3tahuman
+
+vamos a probar la conexión
+
+Estamos dentro
+
+![image](https://github.com/user-attachments/assets/a52251ea-6d34-46c4-9de5-6240cc67d8cc)
+
+Una vez esto hacemos un sudo -l -l
+
+En que encontramos que la función pkexec tenemos opciones de root
+
+Gtfobins - pkexec teneis la respuesta super simple y tenemos root
+
+GG!!!!!!!!!!
+
+
 
