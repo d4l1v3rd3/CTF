@@ -275,6 +275,8 @@ GG!!!!!!!!!!!!!!!!!
 
 HAPPY HACKING
 
+PD: si queremos leer el root.txt
 
-
-
+```
+find /root/ -name "*root.txt*" -exec cat {} \;
+```
