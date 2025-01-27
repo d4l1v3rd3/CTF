@@ -48,6 +48,7 @@ Máquinas | Descripción | Dificultad | Plataforma | Sistema Operativo | Imagen 
 [HackPark](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/HackPark-THM.md) | Hydra (http-post-form) - BlogEngine 3.3.6 (RCE) - Metasploit - WinPeas | MEDIO | THM | WINDOWS | <img width=50px height=50px src="https://github.com/user-attachments/assets/f4fb2ad3-5605-4479-843d-9c2cfc9ea371">
 [Relevant](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Relevant-THM.md) | Enumneración SMB - ms17_010 - Metasploit - PrintSpoofer | MEDIO | THM | WINDOWS | <img width=50px height=50px src="https://github.com/user-attachments/assets/c2389c06-6820-4cc8-8149-fd9be25d7c7d">
 [Anonymous](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Anonymous-THM.md) | Enumeración FTP / Anonymous / Inyección sh - Enumeración SMB - GTFO BINS / env | MEDIO | THM | LINUX | <img witdh=50px height=50px src="https://github.com/user-attachments/assets/78d9e056-2354-4c4f-a4f9-0d37be06d3bd"> 
+[Blog](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Blog-THM.md) | Wpscan - SmbList | 
 [Ultratech](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/UltraTech-THB.md) | Docker - ssh - FUZZ - CrackHash - RCE - RevShell | MEDIO | THM | LINUX |
 [Biohazard](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/Biohazard-THM.md) | Tar - Gzip - Exiftool - Steghide - Walk - SSH - FTP | MEDIO | THM | LINUX |
 [StuxCTF](https://github.com/d4l1v3rd3/CTF/blob/main/Medium/StuxCTF-THM.md) | Python - Decoding - Crypto - RevShell - LFI - Sudo - PHP | MEDIO | THM | LINUX |
