@@ -147,3 +147,23 @@ jose.96.
 jose.9298
 jose.2856171
 ```
+
+Le metemos una ataque por hydral al ssh ya que sabemos dicho usuario
+
+```
+hydra -l think -p pass.txt ip ssh
+```
+
+![image](https://github.com/user-attachments/assets/3d443d03-a75f-43b0-9eaf-9e7195573434)
+
+Una vez estemos dentro empezaremos a escalar privilegios
+
+En gtfo bins parece ser que tenemos un problema con los permisos de "look"
+
+https://gtfobins.github.io/gtfobins/look/
+
+Simplemente con esto o podemos buscar la id_rsa del root y leer el root.txt o ir directamente a:
+
+![image](https://github.com/user-attachments/assets/6cb858b4-0e6d-400d-b392-d411b49c760f)
+
+GG!!!!
